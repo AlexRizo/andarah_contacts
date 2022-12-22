@@ -23,13 +23,32 @@
 
 .content {
     max-width: 1920px;
+    width: 100%;
 }
 
 .table {
-    padding: 25px 25px;
-    background: rgb(221, 221, 221);
+    width: 100%;
+	border: 1px solid #EEEEEE;
 }
 
-.t-head {
-    background: violet;
+.table-head {
+    display: flex;
+	width: 100%;
+	background: #000;
+	padding: 15px 15px;
+    color: white;
+    text-transform: uppercase;
+    align-items: center;
+}
+
+.table-row {
+    display: flex;
+	width: 100%;
+	padding: 10px 10px;
+    align-items: center;
+}
+
+.table-data, .head_item {
+    flex: 1 1 20%;
+    text-align: center;
 }

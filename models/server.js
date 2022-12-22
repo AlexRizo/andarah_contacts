@@ -6,7 +6,11 @@ import {Server as socketServer } from 'socket.io';
 import path from "path";
 import { fileURLToPath } from "url";
 
-import homeRouter from '../routes/home.js'
+import clientsRouter from '../routes/clients.js'
+import staffsRouter from '../routes/staff.js'
+import authRouter from '../routes/auth.js'
+
+import database from "../connections/database.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -18,23 +22,25 @@ class Server {
         this.server = http.createServer(this.app);
         this.io = new socketServer(this.server);
         this.paths = {
-            home: '/home',
+            zapier: '/zapier/api',
+            staff:  '/staff',
+            auth:  '/auth'
         };
 
-        // this.dbConnection();
+        this.dbConnection();
         this.middlewares();
         this.routes();
         this.sockets();
     }
 
-    // async dbConnection() {
-    //     try {
-    //         await db.athenticate();
-    //         console.log('Database online');
-    //     } catch (error) {
-    //         return new Error(`Error al conectarse con la base de datos \n ${error}`)            
-    //     }
-    // }
+    async dbConnection() {
+        try {
+            await database.authenticate();
+            console.log('Database online');
+        } catch (error) {
+            throw error;
+        }
+    }
 
     middlewares() {
         this.app.use(cors());
@@ -43,7 +49,9 @@ class Server {
     }
 
     routes() {
-        this.app.use(this.paths.home, homeRouter);
+        this.app.use(this.paths.zapier, clientsRouter);
+        this.app.use(this.paths.staff, staffsRouter);
+        this.app.use(this.paths.auth, authRouter);
 
         this.app.get('*', (req, res) => {
             res.sendFile(path.join(__dirname, '../public/errors', '404.html'));
