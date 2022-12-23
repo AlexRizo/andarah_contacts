@@ -15,7 +15,7 @@ export const postClient = async(req, res) => {
 }
 
 export const getClients = async(req, res) => {
-    const clients = User.findAll();
+    const clients = await User.findAll();
 
     console.log(clients);
     res.json({ clients })
