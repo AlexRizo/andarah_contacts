@@ -9,7 +9,14 @@ export const postClient = async(req, res) => {
     }
     
     console.log(userInfo);
-    const user = await User.create(userInfo);
+    // const user = await User.create(userInfo);
     
-    res.json(user);
+    res.json({response: 'Usuario agregado correctamente.'});
+}
+
+export const getClients = async(req, res) => {
+    const clients = User.findAll();
+
+    console.log(clients);
+    res.json({ clients })
 }
