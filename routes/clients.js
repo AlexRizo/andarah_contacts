@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { check } from "express-validator";
-import { postClient } from "../controllers/clientsController.js";
+import { getClients, postClient } from "../controllers/clientsController.js";
+import jsonWebToken from "../middlewares/jsonWebToken.js";
 import validateFields from "../middlewares/validateFields.js";
 
 const router = Router();
@@ -18,5 +19,7 @@ router.post('/post', [
     check('gr', 'gr es obligatorio.').not().isEmpty(),
     validateFields
 ], postClient);
+
+router.get('/get', jsonWebToken, getClients)
 
 export default router;
