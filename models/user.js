@@ -1,5 +1,6 @@
 import { Model, DataTypes, Sequelize } from 'sequelize';
 import sequelize from '../connections/database.js';
+import Staff from './staff.js';
 
 class User extends Model { }
   
@@ -65,5 +66,8 @@ User.init(
         sequelize, // passing the `sequelize` instance is required
     },
 );
+
+Staff.hasMany(User, { foreignKey:'asigned_to', targetKey:'id', as:'asigned_to' });
+User.belongsTo(Staff);
 
 export default User;

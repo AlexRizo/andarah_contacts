@@ -11,16 +11,16 @@ export const login = async(req, res) => {
         });
 
         if (!user) {
-            return res.status(400).json({ response: 'Correo / contraseña incorrectos.'});
+            return res.status(400).json({ error: 'Correo / contraseña incorrectos.'});
         }
 
         const validPass = bcryptjs.compareSync(password, user.password);
         if (!validPass) {
-            return res.status(400).json( {response: 'Correo / contraseña incorrectos.' });
+            return res.status(400).json({ error: 'Correo / contraseña incorrectos.' });
         }
 
         if (!user.status) {
-            return res.status(400).json({ response: 'Cuenta bloqueada.' });
+            return res.status(400).json({ error: 'Cuenta bloqueada.' });
         }
 
         const tkn = await generateJWT(user.id);
@@ -29,7 +29,7 @@ export const login = async(req, res) => {
     } catch (error) {
         console.log(error);
         res.status(500).json({
-            response: 'Error with the server (resp: 500).'
+            error: 'Error with the server (resp: 500).'
         });
     }
 }
@@ -43,4 +43,8 @@ export const renewTKN = async(req, res) => {
         user,
         tkn
     });
+}
+
+export const loginPage = (req, res) => {
+    res.render('auth/login');
 }

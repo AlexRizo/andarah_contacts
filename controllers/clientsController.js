@@ -1,3 +1,4 @@
+import Staff from "../models/staff.js";
 import User from "../models/user.js";
 
 export const postClient = async(req, res) => {
@@ -15,8 +16,8 @@ export const postClient = async(req, res) => {
 }
 
 export const getClients = async(req, res) => {
-    const clients = await User.findAll();
+    const data = await User.findAll({include: {model: Staff}});
 
-    console.log(clients);
-    res.json({ clients })
+    console.log(data);
+    res.json({ clients:data })
 }

@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { check } from "express-validator";
-import { login, renewTKN } from "../controllers/authController.js";
+import { login, loginPage, renewTKN } from "../controllers/authController.js";
 import jsonWebToken from "../middlewares/jsonWebToken.js";
 import validateFields from "../middlewares/validateFields.js";
 
@@ -12,6 +12,8 @@ router.post('/login', [
     validateFields
 ], login);
 
-router.get('/', jsonWebToken, renewTKN);
+router.get('/renew', jsonWebToken, renewTKN);
+
+router.get('/', loginPage);
 
 export default router;

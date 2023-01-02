@@ -6,11 +6,13 @@ import {Server as socketServer } from 'socket.io';
 import path from "path";
 import { fileURLToPath } from "url";
 
+import homeRouter from '../routes/home.js'
 import clientsRouter from '../routes/clients.js'
 import staffsRouter from '../routes/staff.js'
 import authRouter from '../routes/auth.js'
 
 import database from "../connections/database.js";
+import expressLayouts from "express-ejs-layouts";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -22,6 +24,7 @@ class Server {
         this.server = http.createServer(this.app);
         this.io = new socketServer(this.server);
         this.paths = {
+            home: '/',
             zapier: '/zapier/api',
             staff:  '/staff',
             auth:  '/auth'
@@ -29,6 +32,7 @@ class Server {
 
         this.dbConnection();
         this.middlewares();
+        this.layouts();
         this.routes();
         this.sockets();
     }
@@ -49,6 +53,7 @@ class Server {
     }
 
     routes() {
+        this.app.use(this.paths.home, homeRouter);
         this.app.use(this.paths.zapier, clientsRouter);
         this.app.use(this.paths.staff, staffsRouter);
         this.app.use(this.paths.auth, authRouter);
@@ -56,6 +61,11 @@ class Server {
         this.app.get('*', (req, res) => {
             res.sendFile(path.join(__dirname, '../public/errors', '404.html'));
         });
+    }
+
+    layouts() {
+        this.app.use(expressLayouts);
+        this.app.set('view engine', 'ejs');
     }
 
     sockets() {
