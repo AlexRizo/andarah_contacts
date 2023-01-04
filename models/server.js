@@ -25,7 +25,7 @@ class Server {
         this.io = new socketServer(this.server);
         this.paths = {
             home: '/',
-            zapier: '/zapier/api',
+            client: '/client',
             staff:  '/staff',
             auth:  '/auth'
         };
@@ -54,7 +54,7 @@ class Server {
 
     routes() {
         this.app.use(this.paths.home, homeRouter);
-        this.app.use(this.paths.zapier, clientsRouter);
+        this.app.use(this.paths.client, clientsRouter);
         this.app.use(this.paths.staff, staffsRouter);
         this.app.use(this.paths.auth, authRouter);
 

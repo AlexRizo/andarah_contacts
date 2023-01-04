@@ -2,13 +2,19 @@ const url = (window.location.hostname.includes('localhost')
             ? 'http://localhost:8080'
             : 'https://andarahcontacts-production.up.railway.app')
 
+const token = localStorage.getItem('auth-token') || null;
+
+if (!token) {
+    console.log('object');
+}
+
 const table = document.querySelector('.table');
 
 let ir = 0;
 
-fetch(`${ url }/zapier/api/get`, {
+fetch(`${ url }/client/get`, {
     headers: {
-        'tkn': localStorage.getItem('auth-token')
+        'tkn': token
     }
 })
 .then(resp => resp.json())
@@ -30,7 +36,7 @@ fetch(`${ url }/zapier/api/get`, {
                 <span class="table-data">${ client.origin         }</span>
                 <span class="table-data">${ client.pl             }</span>
                 <span class="table-data">${ client.gr             }</span>
-                <span class="table-data">${ ((client.asigned_to) != null ? client.asigned_to : 'Sin asignar') }</span>
+                <span class="table-data">${ ((client.staffId) != null ? client.Staff.name : 'Sin asignar') }</span>
                 <span class="table-data">${ ((client.note) != null ? client.note : '---') }</span>
             </div>
         `;
@@ -45,4 +51,8 @@ fetch(`${ url }/zapier/api/get`, {
         }
     }
 })
-.catch(error => console.error(error))
+.catch(error => {
+    console.error(error)
+    localStorage.removeItem('auth-token');
+    window.location = url;
+})

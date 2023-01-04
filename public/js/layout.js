@@ -1,0 +1,1 @@
+const navItems = document.querySelectorAll('.nav_item');

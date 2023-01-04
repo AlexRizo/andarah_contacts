@@ -52,7 +52,7 @@ User.init(
             type: new DataTypes.STRING(128),
             allowNull: false,
         },
-        asigned_to: {
+        staffId: {
             type: new DataTypes.STRING(128),
             allowNull: true,
         },
@@ -67,7 +67,7 @@ User.init(
     },
 );
 
-Staff.hasMany(User, { foreignKey:'asigned_to', targetKey:'id', as:'asigned_to' });
+Staff.hasMany(User, { foreignKey: 'staffId', targetKey:'id', as:'asigned' });
 User.belongsTo(Staff);
 
 export default User;
