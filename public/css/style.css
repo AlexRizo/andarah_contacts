@@ -68,6 +68,11 @@ a {
     align-items: center;
 }
 
+.table-row:hover {
+    background: rgb(191, 233, 242) !important;
+    cursor: pointer;
+}
+
 .table-data, .head_item {
     flex: 1 1 20%;
     text-align: center;
@@ -139,15 +144,22 @@ a {
 .input {
     padding: 10px;
     border: 1px solid #949494;
-    margin-top: 10px;
     border-radius: 2px;
     outline-width: 1px;
-    outline-color: #ff0000;
+    outline-color: #2e2e2e;
 }
 
-/* .input:focus {
-    border:1px solid #ffffff;
-} */
+.lbl-input-add {
+    margin: 10px 0 2px 0;
+}
+
+.btn-add {
+    margin-top: 20px;
+}
+
+.add-title {
+    margin-bottom: 20px;
+}
 
 .add-section {
     width: 100vw;
@@ -155,4 +167,50 @@ a {
 
 .form-body {
     width: 1920px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+}
+
+.modal {
+    width: 100vw;
+    height: 100vh;
+    background: #0000006b;
+    position: absolute;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card {
+    background: white;
+    padding: 20px 40px;
+}
+
+.form-edit {
+    display: flex;
+    flex-direction: column;
+}
+
+.actions {
+    display: flex;
+    margin-top: 20px;
+    flex-direction: row-reverse;
+}
+
+.btn-delete {
+    margin-left: 5px;
+    background: rgb(225, 33, 33);
+    border: 1px solid rgb(185, 120, 120);
+    padding: 10px;
+    color: white;
+}
+
+.btn-save {
+    background: rgb(16, 143, 211);
+    border: 1px solid rgb(120, 168, 185);
+    padding: 10px;
+    color: white;
 }

@@ -11,6 +11,8 @@ import clientsRouter from '../routes/clients.js'
 import staffsRouter from '../routes/staff.js'
 import authRouter from '../routes/auth.js'
 
+import socketController from '../sockets/controller.js'
+
 import database from "../connections/database.js";
 import expressLayouts from "express-ejs-layouts";
 

@@ -1,7 +1,8 @@
+import { response } from "express";
 import Staff from "../models/staff.js";
 import User from "../models/user.js";
 
-export const postClient = async(req, res) => {
+export const postClientZapier = async(req, res) => {
     const userInfo = req.body;
     const zapierPass = req.header('zapierPass')
 
@@ -9,10 +10,17 @@ export const postClient = async(req, res) => {
         return res.status(400).json({ response: 'invalid ZAPIERKEY.' })
     }
     
-    console.log(userInfo);
-    // const user = await User.create(userInfo);
+    res.json({ response: 'Usuario agregado correctamente.' });
+}
+
+export const postClient = async(req, res) => {
+    const data = req.body;
+
+    console.log(data);
     
-    res.json({response: 'Usuario agregado correctamente.'});
+    await User.create(data);
+    
+    res.json({ response: 'Usuario añadido correctamente.' });
 }
 
 export const getClients = async(req, res) => {
@@ -20,4 +28,10 @@ export const getClients = async(req, res) => {
 
     console.log(data);
     res.json({ clients:data })
+}
+
+export const addPage = async(req, res) => {
+    const staff = await Staff.findAll();
+
+    res.render('home/new', { staff });
 }

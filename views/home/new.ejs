@@ -1,19 +1,43 @@
 <section class="add-section">
     <div class="form-body">
-        <h1>Añadir nuevo cliente</h1>
+        <h1 class="add-title">Añadir nuevo cliente</h1>
         <form action="" class="form-client">
-            <input class="input" type="text" name="name">
-            <input class="input" type="text" name="email">
-            <input class="input" type="text" name="city">
-            <input class="input" type="tel" name="phone_number">
-            <input class="input" type="text" name="reason">
-            <input class="input" type="text" name="contact_status">
-            <input class="input" type="date" name="date_contact">
-            <input class="input" type="text" name="origin">
-            <input class="input" type="text" name="pl">
-            <input class="input" type="text" name="gr">
-            <input class="input" type="number" name="staffId">
-            <textarea name="note" cols="30" rows="10"></textarea>
+            <label class="lbl-input-add" for="name">Nombre:</label>
+            <input class="input" type="text" name="name" placeholder="Nombre">
+            <label class="lbl-input-add" for="name">Correo</label>
+            <input class="input" type="text" name="email" placeholder="Correo Electrónico">
+            <label class="lbl-input-add" for="name">Ciudad</label>
+            <input class="input" type="text" name="city" placeholder="Ciudad">
+            <label class="lbl-input-add" for="name">Número de Teléfono</label>
+            <input class="input" type="tel" name="phone_number" placeholder="Teléfono" maxlength="15" autocomplete="off">
+            <label class="lbl-input-add" for="name">Motivo</label>
+            <input class="input" type="text" name="reason" placeholder="Motivo">
+            <label class="lbl-input-add" for="name">Fecha de envío</label>
+            <input class="input" type="date" name="date_contact" placeholder="Fecha de envío">
+            <label class="lbl-input-add" for="name">¿Ya se Contectó?</label>
+            <select class="input" type="text" name="contact_status">
+                <option value="0">No</option>
+                <option value="1">Sí</option>
+            </select>
+            <label class="lbl-input-add" for="name">Origen</label>
+            <input class="input" type="text" name="origin" placeholder="Origen">
+            <label class="lbl-input-add" for="name">Plataforma</label>
+            <input class="input" type="text" name="pl" placeholder="Plataforma">
+            <label class="lbl-input-add" for="name">Grupo</label>
+            <input class="input" type="text" name="gr" placeholder="Grupo">
+            <label class="lbl-input-add" for="name">Asignado a</label>
+            <select class="input" type="number" name="staffId">
+                <% staff.forEach(user => { %>
+                    <option value="<%= user.id %>"><%= user.name %></option>
+                <% }); %>
+            </select>
+            <label class="lbl-input-add" for="name">Nota</label>
+            <textarea class="input" name="note" cols="30" rows="10" placeholder="Nota"></textarea>
+
+            <button class="btn-add" type="submit">Crear</button>
         </form>
     </div>
 </section>
+
+<script src='http://localhost:8080/socket.io/socket.io.js'></script>
+<script src="/js/new.js"></script>

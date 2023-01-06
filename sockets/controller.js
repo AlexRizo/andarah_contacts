@@ -1,5 +1,5 @@
 import { Socket } from "socket.io";
-import { validateJWT } from "../helpers/jwt";
+import { validateJWT } from "../helpers/jwt.js";
 
 const socketController = async(socket = new Socket(), io) => {
     const user = await validateJWT(socket.handshake.headers['tkn']);
@@ -8,3 +8,5 @@ const socketController = async(socket = new Socket(), io) => {
         return socket.disconnect();
     }
 }
+
+export default socketController;
