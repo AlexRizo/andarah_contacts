@@ -21,7 +21,8 @@
     </div>
 </section>
 
-<div class="modal">
+<div class="modal hidden__true">
+    <div class="bg-edit-modal"></div>
     <div class="card">
         <h1>Editar Cliente</h1>
         <form class="form-edit">
@@ -36,7 +37,7 @@
             <label class="lbl-input-add" for="name">Motivo</label>
             <input class="input" type="text" name="reason" placeholder="Motivo">
             <label class="lbl-input-add" for="name">¿Ya se Contactó?</label>
-            <select class="input" type="text" name="contact_status">
+            <select class="input conS" type="text" name="contact_status">
                 <option value="0">No</option>
                 <option value="1">Sí</option>
             </select>
@@ -56,8 +57,8 @@
             <textarea class="input" name="note" cols="30" rows="10" placeholder="Nota"></textarea>
 
             <div class="actions">
-                <input class="btn-save" type="button" value="Eliminar">
-                <button class="btn-delete" type="submit">Eliminar</button>
+                <input class="btn-delete" type="button" value="Eliminar">
+                <input class="btn-save" type="button" value="Guardar">
             </div>
         </form>
     </div>

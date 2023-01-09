@@ -7,6 +7,8 @@ const token = localStorage.getItem('auth-token') || null;
 const form = document.querySelector('.form-edit');
 const btnDelete = document.querySelector('.btn-delete');
 const modal = document.querySelector('.modal');
+const quitModal = document.querySelector('.bg-edit-modal');
+const inpS = document.querySelector('.conS')
 
 let socket = null;
 
@@ -21,10 +23,7 @@ const init = async() => {
         }
     })
     .then(resp => resp.json())
-    .then(({ clients }) => {
-    
-        console.log(clients);
-        
+    .then(({ clients }) => {        
         clients.forEach(client => {
             table.innerHTML += `
                 <div class="table-row" onclick="editClient(${ client.id })">
@@ -64,8 +63,8 @@ const init = async() => {
 }
 
 const editClient = (id) => {
-    alert(id);
-    
+    socket.emit('get-client-data', { id });
+    modal.classList.toggle('hidden__true');
 }
 
 const connectSocket = async() => {
@@ -77,8 +76,24 @@ const connectSocket = async() => {
 
     socket.on('connect', () => console.log('Socket Online'));
     socket.on('disconnect', () => console.log('Socket Offline'));
+    socket.on('client-sndd', ({ client }) => {
+        for (const el of form.elements) {
+            if (el.name) {
+                el.value = client[el.name];
+            }
+        }
+        inpS.value = (client.contact_status === true ? 1 : 0); 
+    });
 }
 
+quitModal.addEventListener('click', () => {
+    modal.classList.toggle('hidden__true');
+    for (const el of form.elements) {
+        if (el.name) {
+            el.value = '';
+        }
+    }
+});
 
 
 const main = async() => {
