@@ -37,6 +37,6 @@ export const validateJWT = async(tkn = '') => {
             return null;
         }
     } catch (error) {
-        throw error;
+        return new Error(error);
     }
 }

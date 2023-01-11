@@ -218,6 +218,7 @@ a {
     border: 1px solid rgb(185, 120, 120);
     padding: 10px;
     color: white;
+    cursor: pointer;
 }
 
 .btn-save {
@@ -225,6 +226,7 @@ a {
     border: 1px solid rgb(120, 168, 185);
     padding: 10px;
     color: white;
+    cursor: pointer;
 }
 
 /* <------------------- { } -------------------> */

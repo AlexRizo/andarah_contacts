@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { check } from "express-validator";
-import { addPage, getClients, postClient, postClientZapier } from "../controllers/clientsController.js";
+import { addPage, getClients, postClient, postClientZapier, updateClient } from "../controllers/clientsController.js";
 import jsonWebToken from "../middlewares/jsonWebToken.js";
 import validateFields from "../middlewares/validateFields.js";
 
@@ -36,6 +36,10 @@ router.post('/create', [ // TODO: This route is for internal use;
     validateFields,
     jsonWebToken
 ], postClient);
+
+router.put('/update', [
+    jsonWebToken
+], updateClient)
 
 router.get('/get', jsonWebToken, getClients);
 

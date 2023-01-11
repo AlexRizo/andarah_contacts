@@ -15,8 +15,6 @@ export const postClientZapier = async(req, res) => {
 
 export const postClient = async(req, res) => {
     const data = req.body;
-
-    console.log(data);
     
     await User.create(data);
     
@@ -28,6 +26,16 @@ export const getClients = async(req, res) => {
 
     console.log(data);
     res.json({ clients:data })
+}
+
+export const updateClient = async(req, res) => {
+    const {id, ...data} = req.body;
+
+    await User.update(data, { where: { 'id': id } });
+
+    const clients = await User.findAll({include: { model: Staff }});
+        
+    res.json({ clients });
 }
 
 export const addPage = async(req, res) => {
