@@ -18,3 +18,7 @@ export const newStaff = async(req, res) => {
 
     res.json({ response: 'Usuario creado correctamente.' });
 }
+
+export const profileView = (req, res) => {
+    res.render('home/profile');
+}

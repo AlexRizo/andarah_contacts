@@ -24,7 +24,6 @@ export const postClient = async(req, res) => {
 export const getClients = async(req, res) => {
     const data = await User.findAll({include: { model: Staff }});
 
-    console.log(data);
     res.json({ clients:data })
 }
 

@@ -28,7 +28,7 @@ class Server {
         this.paths = {
             home: '/',
             client: '/client',
-            staff:  '/staff',
+            staff:  '/details',
             auth:  '/auth'
         };
 

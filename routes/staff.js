@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { check } from "express-validator";
-import { newStaff } from "../controllers/staffController.js";
+import { newStaff, profileView } from "../controllers/staffController.js";
 import validateFields from "../middlewares/validateFields.js";
 
 const router = Router();
@@ -12,5 +12,7 @@ router.post('/create-new', [
     check('password', 'La contraseña es obligatoria').not().isEmpty(),
     validateFields
 ], newStaff);
+
+router.get('/profile', profileView);
 
 export default router;

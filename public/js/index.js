@@ -10,7 +10,7 @@ const btnDelete = document.querySelector('.btn-delete');
 const btnSave = document.querySelector('.btn-save');
 const modal = document.querySelector('.modal');
 const quitModal = document.querySelector('.bg-edit-modal');
-const inpS = document.querySelector('.conS')
+const inpS = document.querySelector('.conS');
 
 let socket = null;
 
@@ -34,7 +34,6 @@ const init = async() => {
 
 const createTable = (clients) => {
     const tData = document.querySelectorAll('.table-row');
-
     let ir = 0;
 
     if ( !(tData.length < 1) ) {
@@ -42,33 +41,35 @@ const createTable = (clients) => {
             table.removeChild(tData[i]);
         }
     }
-
+    
     clients.forEach(client => {
         table.innerHTML += `
-            <div class="table-row" onclick="editClient(${ client.id })">
-                <span class="table-data">${ client.id             }</span>
+            <div class="table-row ${ ((client.contact_status) != true ? 'row-pending' : '') }">
+                <span class="table-data" onclick="editClient(${client.id})"><i class="fa-regular fa-pen-to-square"></i></span>
                 <span class="table-data">${ client.name           }</span>
                 <span class="table-data">${ client.email          }</span>
                 <span class="table-data">${ client.city           }</span>
                 <span class="table-data">${ client.phone_number   }</span>
                 <span class="table-data">${ client.reason         }</span>
-                <span class="table-data">${ ((client.contact_status) === true ? '<p style="color: green;">Contactado</p>' : '<p style="color: red;">Pendiente</p>') }</span>
                 <span class="table-data">${ client.date_contact   }</span>
                 <span class="table-data">${ client.origin         }</span>
                 <span class="table-data">${ client.pl             }</span>
                 <span class="table-data">${ client.gr             }</span>
                 <span class="table-data">${ ((client.staffId) != null ? client.Staff.name : 'Sin asignar') }</span>
                 <span class="table-data">${ ((client.note) != null ? client.note : '---') }</span>
+                <span class="table-data"><input class="input-checked" type="checkbox" name="contact_status" ${ ((client.contact_status) === true ? 'checked' : '') } value="Contactado" onclick="checkRow(${ client.id })"></span>
             </div>
         `;
     });
-
-
 }
 
 const editClient = (id) => {
     socket.emit('get-client-data', { id });
     modal.classList.toggle('hidden__true');
+}
+
+const checkRow = (id) => {
+    socket.emit('row-checked', { id });
 }
 
 const connectSocket = async() => {
@@ -88,9 +89,7 @@ const connectSocket = async() => {
         }
         inpS.value = (client.contact_status === true ? 1 : 0); 
     });
-    socket.on('confirm-delete', ({ clients }) => {
-        alert('Registro eliminado...');
-
+    socket.on('update-table', ({ clients }) => {
         createTable(clients);
     })
 }

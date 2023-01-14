@@ -68,6 +68,10 @@ a {
     align-items: center;
 }
 
+.row-pending {
+    font-weight: bold;
+}
+
 .table-row:hover {
     background: rgb(191, 233, 242) !important;
     cursor: pointer;
