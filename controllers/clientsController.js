@@ -9,6 +9,8 @@ export const postClientZapier = async(req, res) => {
     if (zapierPass != process.env.ZAPIERKEY) {
         return res.status(400).json({ response: 'invalid ZAPIERKEY.' })
     }
+
+    await User.create(userInfo);
     
     res.json({ response: 'Usuario agregado correctamente.' });
 }

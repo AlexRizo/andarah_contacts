@@ -239,3 +239,21 @@ a {
     display: none;
 }
 
+.details-section {
+    margin-top: 30px;
+}
+
+.colab-section {
+    width: 600px;
+    border: 1px solid gray;
+    padding: 10px 20px;
+}
+
+.t-colabs {
+    margin: 0 0 10px 0;
+}
+
+.colabs {
+    display: flex;
+    flex-direction: column;
+}
