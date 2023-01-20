@@ -12,7 +12,7 @@ const modal = document.querySelector('.modal');
 const quitModal = document.querySelector('.bg-edit-modal');
 const inpS = document.querySelector('.conS');
 
-let socket = null;
+let socket;
 
 const init = async() => {
     fetch(`${ url }/client/get`, {

@@ -15,6 +15,6 @@ router.post('/create-new', [
     validateFields,
 ], newStaff);
 
-router.get('/profile', profileView);
+router.get('/config', profileView);
 
 export default router;
