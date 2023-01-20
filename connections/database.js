@@ -1,5 +1,5 @@
 import { Sequelize } from "sequelize";
-const sequelize = new Sequelize( 'andarah', 'andarah-leadcenter', 'TSXTJjvg9MOz4uuQnt2g', {
+const sequelize = new Sequelize( 'andarah', 'andarah-leadcenter', 'FyjAGPxv2Ru2206fKdhn', {
     host: '127.0.0.1',
     dialect: 'mysql',
     port: 3306,
