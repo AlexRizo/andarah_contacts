@@ -1,6 +1,6 @@
 const url = (window.location.hostname.includes('localhost')
-            ? 'http://localhost:8080'
-            : 'https://andarahcontacts-production.up.railway.app');
+            ? 'http://localhost:3000'
+            : 'https://andarah.leadscenter.work');
 
 const _tkn = localStorage.getItem('auth-token') || '';
 if (_tkn && _tkn.length > 10) {
