@@ -4,7 +4,7 @@ import Staff from "../models/staff.js";
 import User from '../models/user.js'
 
 const updateTableUsers = async() => {
-    return await User.findAll({ include: { model: Staff } });
+    return await User.findAll({ include: { model: Staff }, order: [['contact_status', 'ASC']] });
 }
 
 const updateTableStaff = async(role) => {
