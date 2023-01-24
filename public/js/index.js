@@ -10,9 +10,8 @@ const btnDelete = document.querySelector('.btn-delete');
 const btnSave = document.querySelector('.btn-save');
 const modal = document.querySelector('.modal');
 const quitModal = document.querySelector('.bg-edit-modal');
-const inpS = document.querySelector('.conS');
 
-let socket = null;
+let socket;
 
 const init = async() => {
     fetch(`${ url }/client/get`, {
@@ -34,7 +33,6 @@ const init = async() => {
 
 const createTable = (clients) => {
     const tData = document.querySelectorAll('.table-row');
-    let ir = 0;
 
     if ( !(tData.length < 1) ) {
         for (let i = 0; i < tData.length; i++) {
@@ -87,11 +85,11 @@ const connectSocket = async() => {
                 el.value = client[el.name];
             }
         }
-        inpS.value = (client.contact_status === true ? 1 : 0); 
     });
+
     socket.on('update-table', ({ clients }) => {
         createTable(clients);
-    })
+    });
 }
 
 quitModal.addEventListener('click', () => {
@@ -123,6 +121,8 @@ btnSave.addEventListener('click', () => {
         createTable(clients);
     })
     .catch(console.warn());
+    
+    modal.classList.toggle('hidden__true');
 });
 
 btnDelete.addEventListener('click', () => {
