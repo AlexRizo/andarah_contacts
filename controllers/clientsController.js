@@ -40,7 +40,8 @@ export const updateClient = async(req, res) => {
 }
 
 export const addPage = async(req, res) => {
-    const staff = await Staff.findAll();
+    const staff = await Staff.findAll({ where: { 'role': [2, 3] } } );
+    const origins = await Staff.findAll({ where: { 'role': [2, 3] } } );
 
     res.render('home/new', { staff });
 }

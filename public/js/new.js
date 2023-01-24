@@ -36,6 +36,7 @@ form.addEventListener('submit', (event) => {
             return form.appendChild(divErrors);
         }
 
+        socket.emit('new-client', { status: true });
         alert(response);
         window.location = `${ url }/home`
     })
