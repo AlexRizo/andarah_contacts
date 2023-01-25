@@ -64,6 +64,7 @@ const createTable = (clients) => {
 const editClient = (id) => {
     socket.emit('get-client-data', { id });
     modal.classList.toggle('hidden__true');
+    Push.create('Hola mundo');
 }
 
 const checkRow = (id) => {
