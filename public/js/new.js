@@ -5,17 +5,15 @@ const url = (window.location.hostname.includes('localhost')
 const token = localStorage.getItem('auth-token') || null;
 
 const form = document.querySelector('form');
-const inputs = document.querySelectorAll('.input');
-
+const inputs = document.querySelectorAll('.input-add');
+const btnAdd = document.querySelector('.btn-add')
 const divErrors = document.createElement('div');
 
 let socket;
 
 const formData = {};
 
-form.addEventListener('submit', (event) => {
-    event.preventDefault();
-
+btnAdd.addEventListener('click', (event) => {
     for (const input of inputs) {
         formData[input.name] = input.value;
     }

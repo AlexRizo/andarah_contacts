@@ -4,7 +4,7 @@ import Staff from "../models/staff.js";
 import User from '../models/user.js'
 
 const updateTableUsers = async() => {
-    return await User.findAll({ include: { model: Staff } });
+    return await User.findAll({ include: { model: Staff }, order: [['contact_status', 'ASC']] });
 }
 
 const updateTableStaff = async(role) => {
@@ -64,6 +64,10 @@ const socketController = async(socket = new Socket(), io) => {
         console.log(status);
         io.emit('update-table', { clients: await updateTableUsers() });
     })
+
+    // Connect user to private room for notifications push ||
+    socket.join(user.id);
+    console.log(user.id);
 }
 
 export default socketController;

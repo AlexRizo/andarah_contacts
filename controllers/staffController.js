@@ -30,7 +30,7 @@ export const newStaff = async(req, res) => {
 }
 
 export const profileView = (req, res) => {
-    res.render('home/config');
+    res.render('home/admin');
 }
 
 export const getSalers = async(req, res) => {
