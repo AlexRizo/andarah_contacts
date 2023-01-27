@@ -64,6 +64,10 @@ const socketController = async(socket = new Socket(), io) => {
         console.log(status);
         io.emit('update-table', { clients: await updateTableUsers() });
     })
+
+    // Connect user to private room for notifications push ||
+    socket.join(user.id);
+    console.log(user.id);
 }
 
 export default socketController;
