@@ -438,7 +438,7 @@ body {
     border: 1px solid var(--border-color);
 }
 
-.modal-form input {
+.modal-form input, .modal-form select {
     width: 280px;
     padding: 8px 20px;
     margin-bottom: 10px;

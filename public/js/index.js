@@ -13,6 +13,8 @@ const quitModal = document.querySelector('.bg-edit-modal');
 
 let socket;
 
+form.get
+
 const init = async() => {
     fetch(`${ url }/client/get`, {
         headers: {
@@ -64,7 +66,6 @@ const createTable = (clients) => {
 const editClient = (id) => {
     socket.emit('get-client-data', { id });
     modal.classList.toggle('hidden__true');
-    Push.create('Hola mundo');
 }
 
 const checkRow = (id) => {
@@ -88,6 +89,11 @@ const connectSocket = async() => {
         }
     });
 
+    socket.on('notification', ({ id, msg }) => {
+        console.log(msg);
+        Push.create(msg)
+    })
+    
     socket.on('update-table', ({ clients }) => {
         createTable(clients);
     });
@@ -120,6 +126,7 @@ btnSave.addEventListener('click', () => {
     .then(resp => resp.json())
     .then(({ clients }) => {
         createTable(clients);
+        socket.emit('send-notification', { id: formData.staffId })
     })
     .catch(console.warn());
     

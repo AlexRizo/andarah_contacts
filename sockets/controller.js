@@ -26,6 +26,9 @@ const socketController = async(socket = new Socket(), io) => {
         return socket.disconnect();
     }
 
+    // Connect user to private room for notifications push ||
+    socket.join(`r${user.id}`);
+
     socket.on('get-users', async({ Urole }) => {
         io.emit('get-staff-data', { salers: await updateTableStaff(Urole) });
     })
@@ -62,12 +65,12 @@ const socketController = async(socket = new Socket(), io) => {
 
     socket.on('new-client', async({ status }) => {
         console.log(status);
-        io.emit('update-table', { clients: await updateTableUsers() });
+        io.emit('update-table', { clients: await updateTableUsers() }); 
     })
 
-    // Connect user to private room for notifications push ||
-    socket.join(user.id);
-    console.log(user.id);
+    socket.on('send-notification', ({ id, msg = "Se te ha asignado un nuevo cliente." }) => {
+        console.log(`${id} | ${msg}`);
+    })
 }
 
 export default socketController;

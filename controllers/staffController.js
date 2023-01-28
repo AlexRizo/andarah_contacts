@@ -3,19 +3,9 @@ import Staff from "../models/staff.js";
 
 export const newStaff = async(req, res) => {
     const userInfo = req.body;
-    const { role } = req.user;
 
     try {
         userInfo.password = encrypt(userInfo.password);
-
-        switch (role) {
-            case 1:
-                userInfo.role = 2;    
-            break;
-            case 2:
-                userInfo.role = 3;    
-            break;
-        }
         
         await Staff.create(userInfo);
     } catch (error) {
@@ -40,7 +30,7 @@ export const getSalers = async(req, res) => {
     if (role != 1) {
         users = await Staff.findAll({ where: { 'role': [2, 3] }, order: [['role', 'DESC']] });
 
-        return res.json({ salers:users });
+        return res.json({ salers:users, role });
     }
 
     users = await Staff.findAll({ order: [['role', 'DESC']] });

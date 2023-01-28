@@ -12,6 +12,7 @@ const inputPass = document.querySelector('.inp-pass');
 const tableBody = document.querySelector('.colabs');
 const title = document.querySelector('.t-section-title');
 const errors = document.querySelector('.errors');
+const $inputs = document.querySelectorAll('input');
 
 let socket;
 let Urole;
@@ -33,8 +34,11 @@ const generatePass = () => {
 
 addUser.addEventListener('click', () => {
     modal.classList.toggle('hidden__true');
+    for (const input of $inputs) {
+        input.value = '';
+    }
     inputPass.value = generatePass();
-})
+});
 
 bgModal.addEventListener('click', () => modal.classList.toggle('hidden__true'));
 
@@ -70,6 +74,7 @@ form.addEventListener('submit', (ev) => {
                 }
             }
         }
+
         if (error) {
             return console.error(error);
         }
@@ -81,7 +86,7 @@ form.addEventListener('submit', (ev) => {
         modal.classList.toggle('hidden__true');
     })
     .catch(console.error);
-})
+});
 
 const createTable = (users) => {
     const tData = document.querySelectorAll('.config-table-body');
@@ -120,6 +125,7 @@ const init = async() => {
             title.innerText = 'Usuarios'
         }
         Urole = role;
+
     })
     .catch(console.error);
     
