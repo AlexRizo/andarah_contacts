@@ -324,6 +324,10 @@ body {
     background: var(--t-b-color);
 }
 
+.my-clients-section {
+    margin-top: 50px;
+}
+
 .t-section {
     display: flex;
     justify-content: space-between;
@@ -473,4 +477,52 @@ body {
 
 .hidden__true {
     display: none;
+}
+
+/* <------------------- { } -------------------> */
+
+.loading-animation {
+    position: absolute;
+}
+
+.circle-one {
+    position: absolute;
+    border-radius: 50%;
+    border: solid 4px transparent;
+    border-top-color: var(--btn-col);
+    border-left-color: var(--btn-col);
+    width: 60px;
+    height: 60px;
+    animation: loader1 1.2s linear infinite;
+}
+
+.circle-twee {
+    position: absolute;
+    border-radius: 50%;
+    border: solid 4px transparent;
+    border-top-color: rgb(34, 139, 139);
+    border-left-color: rgb(34, 139, 139);
+    width: 45px;
+    height: 45px;
+    animation: loader2 .8s linear infinite;
+}
+
+@keyframes loader1 {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+@keyframes loader2 {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(-360deg);
+    }
 }

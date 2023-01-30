@@ -6,8 +6,9 @@ export const newStaff = async(req, res) => {
 
     try {
         userInfo.password = encrypt(userInfo.password);
-        
         await Staff.create(userInfo);
+        
+        res.json({ response: 'Usuario creado correctamente.' });        
     } catch (error) {
         res.json(
             {
@@ -15,8 +16,6 @@ export const newStaff = async(req, res) => {
                 error
             });
     }
-
-    res.json({ response: 'Usuario creado correctamente.' });
 }
 
 export const profileView = (req, res) => {

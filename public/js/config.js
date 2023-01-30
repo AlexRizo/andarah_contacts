@@ -13,6 +13,8 @@ const tableBody = document.querySelector('.colabs');
 const title = document.querySelector('.t-section-title');
 const errors = document.querySelector('.errors');
 const $inputs = document.querySelectorAll('input');
+const usersSection = document.querySelector('.users-section');
+const page = document.querySelector('section');
 
 let socket;
 let Urole;
@@ -38,6 +40,7 @@ addUser.addEventListener('click', () => {
         input.value = '';
     }
     inputPass.value = generatePass();
+    errors.innerText = '';
 });
 
 bgModal.addEventListener('click', () => modal.classList.toggle('hidden__true'));
@@ -65,27 +68,42 @@ form.addEventListener('submit', (ev) => {
     })
     .then((response) => response.json())
     .then(({ response, error }) => {
+        let isVoid;
+
         for (const el of form.elements) {
             if (el.name) {
                 if (!el.value) {
-                    errors.innerText = '* Completa los campos.'
-                    error = true;
+                    errors.innerText = '* Completa los campos.';
+                    isVoid = true;
                     break;
                 }
             }
         }
 
-        if (error) {
-            return console.error(error);
+        if (error || isVoid) {
+            if (!error) {
+                return false;
+            } else if (!error.parent){
+                errors.innerText = '* Correo inválido.';
+                return false;       
+            } else if (error.parent.errno === 1062){
+                errors.innerText = '* El correo ya existe.';
+                return false;
+            }else {
+                errors.innerText = '* Ha ocurrido un error.';
+                console.error(error);
+                return false;
+            }
         }
 
         if (response) {
             console.log(response);
         }
+
         socket.emit('get-users', { Urole });
         modal.classList.toggle('hidden__true');
     })
-    .catch(console.error);
+    .catch(console.warn);
 });
 
 const createTable = (users) => {
@@ -119,13 +137,19 @@ const init = async() => {
     .then((response) => response.json())
     .then(({ salers, role }) => {
         createTable(salers);
+        Urole = role;
+
         if (role != 1) {
             title.innerText = 'Vendedores'
         } else {
             title.innerText = 'Usuarios'
         }
-        Urole = role;
-
+        
+        if (role != 3) {
+            usersSection.removeAttribute('hidden')
+        } else {
+            page.removeChild(page);
+        }
     })
     .catch(console.error);
     
@@ -147,7 +171,8 @@ const connectSocket = async() => {
     });
     socket.on('get-staff-data', ({ salers }) => {
         createTable(salers);
-    })
+    });
+
 }
 
 const main = async() => {

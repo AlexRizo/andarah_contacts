@@ -4,6 +4,7 @@ import { getSalers, newStaff, profileView } from "../controllers/staffController
 import staffValidation from "../middlewares/staffPassValidation.js";
 import validateFields from "../middlewares/validateFields.js";
 import jsonWebToken from "../middlewares/jsonWebToken.js";
+import { emailUnique } from "../helpers/dbValidations.js";
 
 const router = Router();
 
@@ -12,6 +13,7 @@ router.post('/create-new', [
     check('name', 'El nombre es obligatorio.').not().isEmpty(),
     check('email', 'El email es obligatorio.').not().isEmpty(),
     check('email', 'El email no es válido.').isEmail(),
+    check('email'). custom(emailUnique),
     check('password', 'La contraseña es obligatoria').not().isEmpty(),
     validateFields,
 ], newStaff);
