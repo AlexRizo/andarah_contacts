@@ -55,10 +55,15 @@ const connectSocket = async() => {
     });
 
     socket.on('connect', () => console.log('Socket Online'));
+
     socket.on('disconnect', () => {
         console.log('Socket Offline');
         localStorage.removeItem('tkn');
         window.location = url;
+    });
+
+    socket.on('notification', ({ id, msg }) => {
+        Push.create(msg)
     });
 }
 

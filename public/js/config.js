@@ -15,6 +15,7 @@ const errors = document.querySelector('.errors');
 const $inputs = document.querySelectorAll('input');
 const usersSection = document.querySelector('.users-section');
 const page = document.querySelector('section');
+const pendings = document.querySelector('.prospects-pending');
 
 let socket;
 let Urole;
@@ -95,7 +96,7 @@ form.addEventListener('submit', (ev) => {
                 return false;
             }
         }
-
+        
         if (response) {
             console.log(response);
         }
@@ -148,7 +149,7 @@ const init = async() => {
         if (role != 3) {
             usersSection.removeAttribute('hidden')
         } else {
-            page.removeChild(page);
+            page.removeChild(usersSection);
         }
     })
     .catch(console.error);
@@ -164,15 +165,29 @@ const connectSocket = async() => {
     });
 
     socket.on('connect', () => console.log('Socket Online'));
+    
     socket.on('disconnect', () => {
         console.log('Socket Offline');
         localStorage.removeItem('tkn');
         window.location = url;
     });
+
     socket.on('get-staff-data', ({ salers }) => {
         createTable(salers);
     });
-
+    
+    socket.on('notification', ({ id, msg }) => {
+        Push.create(msg)
+    });
+    
+    socket.emit('get-prospects-asigned', { token });
+    socket.on('prospects-asigned', ({ prospects }) => {
+        pendings.innerText = `Pendientes: ${ prospects.count }`
+        console.log(prospects.rows);
+        prospects.rows.forEach(user => {
+            console.log(user.id);
+        })
+    });
 }
 
 const main = async() => {

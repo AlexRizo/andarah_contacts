@@ -90,9 +90,8 @@ const connectSocket = async() => {
     });
 
     socket.on('notification', ({ id, msg }) => {
-        console.log(msg);
         Push.create(msg)
-    })
+    });
     
     socket.on('update-table', ({ clients }) => {
         createTable(clients);
@@ -126,7 +125,8 @@ btnSave.addEventListener('click', () => {
     .then(resp => resp.json())
     .then(({ clients }) => {
         createTable(clients);
-        socket.emit('send-notification', { id: formData.staffId })
+        socket.emit('send-notification', { id: formData.staffId });
+        socket.emit('update-prospects-asigned', { id: formData.staffId, role: formData.Staff.role });
     })
     .catch(console.warn());
     
