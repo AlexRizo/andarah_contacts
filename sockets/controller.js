@@ -101,7 +101,7 @@ const socketController = async(socket = new Socket(), io) => {
     });
 
     socket.on('update-prospects-asigned', ({ id, role }) => {
-        // socket.io('pros')
+        // FIXME: socket.io('pros')
         console.log(id, role);
     });
 
