@@ -9,7 +9,8 @@ const modal = document.querySelector('.modal-vendedor');
 const bgModal = document.querySelector('.bg-modal-vendedor');
 const form = document.querySelector('.modal-form');
 const inputPass = document.querySelector('.inp-pass');
-const tableBody = document.querySelector('.colabs');
+const staffTableBody = document.querySelector('.colabs');
+const prospectTableBody = document.querySelector('.prospects');
 const title = document.querySelector('.t-section-title');
 const errors = document.querySelector('.errors');
 const $inputs = document.querySelectorAll('input');
@@ -107,22 +108,43 @@ form.addEventListener('submit', (ev) => {
     .catch(console.warn);
 });
 
-const createTable = (users) => {
+const createStaffTable = (users) => {
     const tData = document.querySelectorAll('.config-table-body');
 
     if ( !(tData.length < 1) ) {
         for (let i = 0; i < tData.length; i++) {
-            tableBody.removeChild(tData[i]);
+            staffTableBody.removeChild(tData[i]);
         }
     }
 
     users.forEach(user => {
-        tableBody.innerHTML += `
+        staffTableBody.innerHTML += `
         <div class="config-table-body">
             <span class="t-b">${ user.name }</span>
             <span class="t-b">${ user.email }</span>
             <span class="t-b">${ ((user.status === true) ? '<p style="color: #35dc5f">Activo</p>' : '<p style="color: #dc3545">Inactivo</p>') }</span>
             <span class="t-b"><i class="fa-regular fa-pen-to-square" onclick(editModal(${ user.id }))></i></span>
+        </div>
+        `;
+    });
+}
+
+const createProspectsTable = (users) => {
+    const tData = document.querySelectorAll('.prospect-table-body');
+
+    if ( !(tData.length < 1) ) {
+        for (let i = 0; i < tData.length; i++) {
+            prospectTableBody.removeChild(tData[i]);
+        }
+    }
+
+    users.forEach(user => {
+        prospectTableBody.innerHTML += `
+        <div class="prospect-table-body">
+            <span class="t-b">${ user.name }</span>
+            <span class="t-b">${ user.email }</span>
+            <span class="t-b">${ user.phone_number}</span>
+            <span class="t-b">${ user.city}</span>
         </div>
         `;
     });
@@ -137,7 +159,7 @@ const init = async() => {
     })
     .then((response) => response.json())
     .then(({ salers, role }) => {
-        createTable(salers);
+        createStaffTable(salers);
         Urole = role;
 
         if (role != 1) {
@@ -173,7 +195,7 @@ const connectSocket = async() => {
     });
 
     socket.on('get-staff-data', ({ salers }) => {
-        createTable(salers);
+        createStaffTable(salers);
     });
     
     socket.on('notification', ({ id, msg }) => {
@@ -181,12 +203,14 @@ const connectSocket = async() => {
     });
     
     socket.emit('get-prospects-asigned', { token });
+    alert('Funciono');
     socket.on('prospects-asigned', ({ prospects }) => {
         pendings.innerText = `Pendientes: ${ prospects.count }`
-        console.log(prospects.rows);
-        prospects.rows.forEach(user => {
-            console.log(user.id);
-        })
+        createProspectsTable(prospects.rows);
+    });
+
+    socket.on('prospects-modified', ({ status }) => {
+        socket.emit('get-new-prospects', { token });
     });
 }
 

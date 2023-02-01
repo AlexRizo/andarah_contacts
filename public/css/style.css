@@ -316,7 +316,7 @@ body {
     align-items: center;
 }
 
-.colab-section {
+.colab-section, .prospects-section {
     min-width: 600px;
     max-width: 1000px;
     border: 1px solid var(--border-color);
@@ -361,18 +361,18 @@ body {
     background: var(--btn-hover);
 }
 
-.colabs {
+.colabs, .prospects {
     display: flex;
     flex-direction: column;
     margin: auto;
 }
 
-.config-table-head, .config-table-body {
+.config-table-head, .config-table-body, .prospects-table-head, .prospect-table-body{
     display: flex;
     justify-content: space-between;
 }
 
-.config-table-head {
+.config-table-head, .prospects-table-head{
     border-bottom: 1px solid var(--border-color);
     background: var(--sec-color);
     padding: 10px 0;
@@ -393,7 +393,6 @@ body {
 .t-b {
     padding: 10px;
 }
-
 
 .modal-vendedor {
     width: 100vw;
@@ -438,7 +437,6 @@ body {
     flex-direction: column;
     background: var(--sec-color);
     border-radius: 0 3px 3px 3px;
-
     border: 1px solid var(--border-color);
 }
 

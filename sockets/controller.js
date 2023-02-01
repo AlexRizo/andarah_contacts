@@ -39,7 +39,11 @@ const updateTableStaff = async(role) => {
 
 // TODO: Obtener prospectos dependiendo de tu user.role:
 const getProspectsAsignedTo = async(isStaff, value) => {
-    if (isStaff) {
+    if (!isStaff) {
+        const x = await User.findAll({where:{'staffId': value}})
+        for (const y of x) {
+            console.log(y.id);
+        }
         return await User.findAndCountAll({ where: { 'staffId': value } });
     } else {
         return await User.findAndCountAll({ where: { 'contact_status': value } });
@@ -100,9 +104,21 @@ const socketController = async(socket = new Socket(), io) => {
         socket.to(`r${id}`).emit('notification', { msg });
     });
 
-    socket.on('update-prospects-asigned', ({ id, role }) => {
-        // FIXME: socket.io('pros')
-        console.log(id, role);
+    socket.on('update-prospects-asigned', async({ status }) => {
+        io.emit('prospects-modified', { status });
+    });
+
+    socket.on('get-new-prospects', async({ token }) => {
+        const response = await jsonWebToken(token);
+        if (response.error) {
+            return console.log(error);
+        } else {
+            if (response.staff === 3) {
+                return socket.emit('prospects-asigned', { prospects: await getProspectsAsignedTo(false, response.id) });
+            } else {
+                return socket.emit('prospects-asigned', { prospects: await getProspectsAsignedTo(true, 0) });
+            }
+        }
     });
 
     // TODO: Prospects asigned to:
@@ -112,9 +128,9 @@ const socketController = async(socket = new Socket(), io) => {
             return console.log(error);
         } else {
             if (response.staff === 3) {
-                return socket.io('prospects-asigned', { prospects: await getProspectsAsignedTo(false, response.id) });
+                return socket.emit('prospects-asigned', { prospects: await getProspectsAsignedTo(false, response.id) });
             } else {
-                return socket.io('prospects-asigned', { prospects: await getProspectsAsignedTo(true, 0) });
+                return socket.emit('prospects-asigned', { prospects: await getProspectsAsignedTo(true, 0) });
             }
         }
     });

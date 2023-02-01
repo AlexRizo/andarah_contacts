@@ -126,7 +126,7 @@ btnSave.addEventListener('click', () => {
     .then(({ clients }) => {
         createTable(clients);
         socket.emit('send-notification', { id: formData.staffId });
-        socket.emit('update-prospects-asigned', { id: formData.staffId, role: formData.Staff.role });
+        socket.emit('update-prospects-asigned', { status: true });
     })
     .catch(console.warn());
     
