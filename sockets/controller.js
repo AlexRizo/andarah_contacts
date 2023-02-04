@@ -108,6 +108,7 @@ const socketController = async(socket = new Socket(), io) => {
         io.emit('prospects-modified', { status });
     });
 
+    // TODO: Update prospects asigned when the primary table is modified:
     socket.on('get-new-prospects', async({ token }) => {
         const response = await jsonWebToken(token);
         if (response.error) {
@@ -125,7 +126,7 @@ const socketController = async(socket = new Socket(), io) => {
     socket.on('get-prospects-asigned', async({ token }) => {
         const response = await jsonWebToken(token);
         if (response.error) {
-            return console.log(error);
+            return console.log(response.error);
         } else {
             if (response.staff === 3) {
                 return socket.emit('prospects-asigned', { prospects: await getProspectsAsignedTo(false, response.id) });

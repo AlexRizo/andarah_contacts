@@ -203,7 +203,7 @@ const connectSocket = async() => {
     });
     
     socket.emit('get-prospects-asigned', { token });
-    alert('Funciono');
+    
     socket.on('prospects-asigned', ({ prospects }) => {
         pendings.innerText = `Pendientes: ${ prospects.count }`
         createProspectsTable(prospects.rows);
