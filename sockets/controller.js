@@ -40,11 +40,7 @@ const updateTableStaff = async(role) => {
 // TODO: Obtener prospectos dependiendo de tu user.role:
 const getProspectsAsignedTo = async(isStaff, value) => {
     if (!isStaff) {
-        const x = await User.findAll({where:{'staffId': value}})
-        for (const y of x) {
-            console.log(y.id);
-        }
-        return await User.findAndCountAll({ where: { 'staffId': value } });
+        return await User.findAndCountAll({ where: { 'staffId': value, 'contact_status': false } });
     } else {
         return await User.findAndCountAll({ where: { 'contact_status': value } });
     }    
