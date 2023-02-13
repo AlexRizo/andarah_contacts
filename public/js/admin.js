@@ -16,7 +16,8 @@ const errors = document.querySelector('.errors');
 const $inputs = document.querySelectorAll('input');
 const usersSection = document.querySelector('.users-section');
 const page = document.querySelector('section');
-const pendings = document.querySelector('.prospects-pending');
+const pendings = document.querySelector('.pending');
+const total = document.querySelector('.total');
 
 let socket;
 let Urole;
@@ -205,13 +206,19 @@ const connectSocket = async() => {
     socket.emit('get-prospects-asigned', { token });
     
     socket.on('prospects-asigned', ({ prospects }) => {
-        pendings.innerText = `Pendientes: ${ prospects.count }`
+        pendings.innerText = `${ prospects.count }`
         createProspectsTable(prospects.rows);
     });
 
     socket.on('prospects-modified', ({ status }) => {
         socket.emit('get-new-prospects', { token });
     });
+
+    socket.emit('get-all-prospects', { token });
+
+    socket.on('all-prospects', ({ prospects }) => {
+        total.innerText = prospects.count;
+    })
 }
 
 const main = async() => {

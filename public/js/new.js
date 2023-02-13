@@ -27,10 +27,10 @@ btnAdd.addEventListener('click', (event) => {
         }
     })
     .then(res => res.json())
-    .then(({errors, response}) => {
-        if (errors) {
+    .then(({response, error}) => {
+        if (error) {
             divErrors.innerHTML = `<p style="color: red; margin-top: 20px;">* Hay campos obligatorios vacíos.</p>`;
-            console.log(errors.errors);
+            console.log(error);
             return form.appendChild(divErrors);
         }
 

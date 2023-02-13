@@ -112,7 +112,7 @@ const socketController = async(socket = new Socket(), io) => {
     socket.on('get-new-prospects', async({ token }) => {
         const response = await jsonWebToken(token);
         if (response.error) {
-            return console.log(error);
+            return console.log(response.error);
         } else {
             if (response.staff === 3) {
                 return socket.emit('prospects-asigned', { prospects: await getProspectsAsignedTo(false, response.id) });
@@ -135,6 +135,19 @@ const socketController = async(socket = new Socket(), io) => {
             }
         }
     });
+
+    // TODO: get all prespects with a counter: (6, 10, 190, etc.):
+    socket.on('get-all-prospects', async({ token }) => {
+        const response = jsonWebToken(token);
+
+        if (response.error) {
+            return console.log(response.error);
+        }
+
+        const prospects = await User.findAndCountAll();
+
+        return socket.emit('all-prospects', { prospects });
+    })
 }
 
 export default socketController;
