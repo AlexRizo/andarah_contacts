@@ -34,14 +34,27 @@ export const updateClient = async(req, res) => {
 
     await User.update(data, { where: { 'id': id } });
 
-    const clients = await User.findAll({include: { model: Staff }});
-        
+    const clients = await User.findAll({ include: { model: Staff } });
+
     res.json({ clients });
 }
 
 export const addPage = async(req, res) => {
-    const staff = await Staff.findAll({ where: { 'role': [2, 3] } } );
-    const origins = await Staff.findAll({ where: { 'role': [2, 3] } } );
+    const staff = await Staff.findAll({ where: { 'role': [2, 3] } });
 
     res.render('home/new', { staff });
+}
+
+export const prospectPage = async(req, res) => {
+    const prospect = await User.findByPk(req.params.id, { include: { model: Staff } });
+    const staff = await Staff.findAll();
+
+    if (!prospect.Staff) {
+        prospect.Staff = {
+            id: 0,
+            name: 'Sin Asignar',
+        };
+    }
+    
+    res.render('home/prospect', { prospect, staff });
 }

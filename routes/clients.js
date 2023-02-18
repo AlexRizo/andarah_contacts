@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { check } from "express-validator";
-import { addPage, getClients, postClient, postClientZapier, updateClient } from "../controllers/clientsController.js";
+import { addPage, getClients, postClient, postClientZapier, prospectPage, updateClient } from "../controllers/clientsController.js";
+import validateURLIdParam from "../middlewares/idValidations.js";
 import jsonWebToken from "../middlewares/jsonWebToken.js";
 import validateFields from "../middlewares/validateFields.js";
 
@@ -44,5 +45,7 @@ router.put('/update', [
 router.get('/get', jsonWebToken, getClients);
 
 router.get('/add', addPage);
+
+router.get('/view/:id', validateURLIdParam, prospectPage);
 
 export default router;

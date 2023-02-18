@@ -172,7 +172,7 @@ body {
     grid-auto-rows: minmax(100px, auto);
     background: var(--t-body-color-section);
     padding: 20px 30px;
-    max-width: 830px;
+    width: 800px;
     overflow: hidden;
     border: 1px solid var(--border-color);
 }
@@ -187,7 +187,7 @@ body {
     border: 1px solid var(--border-color);
     background: var(--bg-input);
     border-radius: 3px;
-    width: 250px;
+    width: 200px;
 }
 
 .note-add-new-client {
@@ -197,7 +197,7 @@ body {
 .form-header {
     margin-top: 40px;
     padding: 20px;
-    width: 830px;
+    width: 800px;
     background: var(--sec-color);
     border: 1px solid var(--border-color);
     border-bottom: none;
@@ -206,7 +206,7 @@ body {
 
 .form-footer {
     background: var(--sec-color);
-    width: 830px;
+    width: 800px;
     padding: 10px;
     display: flex;
     justify-content: end;
@@ -309,7 +309,7 @@ body {
     border-radius: 3px;
 }
 
-.details-section {
+.details-section, .prospect-section {
     margin-top: 40px;
     display: flex;
     flex-direction: column;
@@ -353,7 +353,7 @@ body {
     margin-top: 40px;
 }
 
-.general-section, .users-section, .my-clients-section {
+.general-section, .users-section, .my-clients-section, .prospect {
     width: 850px;
 }
 
@@ -498,6 +498,22 @@ body {
     color: var(--danger-col);
     margin: 10px 0;
     text-align: center;
+}
+
+.prospect-data {
+    background: var(--t-b-color);
+    border: 1px solid var(--border-color);
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.data-input {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 20px;
 }
 
 /* <------------------- { } -------------------> */

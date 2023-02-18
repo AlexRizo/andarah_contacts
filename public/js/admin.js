@@ -18,6 +18,7 @@ const usersSection = document.querySelector('.users-section');
 const page = document.querySelector('section');
 const pendings = document.querySelector('.pending');
 const total = document.querySelector('.total');
+const clinetsAsigned = document.querySelector('.t-clients-section-title');
 
 let socket;
 let Urole;
@@ -28,12 +29,11 @@ const generatePass = () => {
                 'abcdefghijklmnopqrstuvwxyz0123456789@#$';
       
     for (let i = 1; i <= 10; i++) {
-        const char = Math.floor(Math.random()
-                    * str.length + 1);
-          
-        pass += str.charAt(char)
+        const char = Math.floor(Math.random() * str.length + 1);
+
+        pass += str.charAt(char);
     }
-      
+
     return pass;
 }
 
@@ -141,12 +141,12 @@ const createProspectsTable = (users) => {
 
     users.forEach(user => {
         prospectTableBody.innerHTML += `
-        <div class="prospect-table-body">
+        <a href="${ url }/client/view/${ user.id }" class="prospect-table-body">
             <span class="t-b">${ user.name }</span>
             <span class="t-b">${ user.email }</span>
             <span class="t-b">${ user.phone_number}</span>
-            <span class="t-b">${ user.city}</span>
-        </div>
+            <span class="t-b">Pendiente por asignar</span>
+        </a>
         `;
     });
 }
@@ -164,13 +164,13 @@ const init = async() => {
         Urole = role;
 
         if (role != 1) {
-            title.innerText = 'Vendedores'
+            title.innerText = 'Vendedores';
         } else {
-            title.innerText = 'Usuarios'
+            title.innerText = 'Usuarios';
         }
         
         if (role != 3) {
-            usersSection.removeAttribute('hidden')
+            usersSection.removeAttribute('hidden');
         } else {
             page.removeChild(usersSection);
         }
@@ -205,8 +205,9 @@ const connectSocket = async() => {
     
     socket.emit('get-prospects-asigned', { token });
     
-    socket.on('prospects-asigned', ({ prospects }) => {
-        pendings.innerText = `${ prospects.count }`
+    socket.on('prospects-asigned', ({ prospects, admin }) => {
+        pendings.innerText = `${ prospects.count }`;
+        clinetsAsigned.innerText = "Pendientes por asignar"
         createProspectsTable(prospects.rows);
     });
 
@@ -218,7 +219,7 @@ const connectSocket = async() => {
 
     socket.on('all-prospects', ({ prospects }) => {
         total.innerText = prospects.count;
-    })
+    });
 }
 
 const main = async() => {

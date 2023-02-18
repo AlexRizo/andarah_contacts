@@ -1,0 +1,72 @@
+<section class="prospect-section">
+    <div class="prospect">
+        <div class="t-section">
+            <span class="t-data-section-title">Prospecto <%= prospect.id %> | <%= prospect.name %></span>
+        </div>
+        <div class="prospect-data">
+            <div class="data-input name">
+                <label for="name">Nombre</label>
+                <input class="input-add" type="text" name="name" value="<%= prospect.name %>">
+            </div>
+            <div class="data-input email">
+                <label for="email">Correo</label>
+                <input class="input-add" type="email" name="email" value="<%= prospect.email %>">
+            </div>
+            <div class="data-input city">
+                <label for="city">Cuidad</label>
+                <input class="input-add" type="text" name="city" value="<%= prospect.city %>">
+            </div>
+            <div class="data-input phone_number">
+                <label for="phone_number">Teléfono</label>
+                <input class="input-add" type="text" name="phone_number" value="<%= prospect.phone_number %>">
+            </div>
+            <div class="data-input reason">
+                <label for="reason">Motivo</label>
+                <input class="input-add" type="text" name="reason" value="<%= prospect.reason %>">
+            </div>
+            <div class="data-input contact_status">
+                <label for="contact_status">Contactado</label>
+                <input class="input-add" type="text" name="contact_status" value="<%= prospect.contact_status %>">
+            </div>
+            <div class="data-input origin">
+                <label for="origin">Origen</label>
+                <input class="input-add" type="text" name="origin" value="<%= prospect.origin %>">
+            </div>
+            <div class="data-input date_contact">
+                <label for="date_contact">Fecha de Envío</label>
+                <input class="input-add" type="date" name="date_contact" value="<%= prospect.date_contact %>">
+            </div>
+            <div class="data-input pl">
+                <label for="pl">Plataforma</label>
+                <input class="input-add" type="text" name="pl" value="<%= prospect.pl %>">
+            </div>
+            <div class="data-input gr">
+                <label for="gr">Grupo</label>
+                <input class="input-add" type="text" name="gr" value="<%= prospect.gr %>">
+            </div>
+            <div class="data-input staffId">
+                <label for="staffId">Asignado a</label>
+                <select name="staffId" class="input-add">
+                    <% if(prospect.staffId === null){ %>
+                        <option value="">Sin Asignar</option>
+                        <% staff.forEach(user => { %>
+                            <option value="<%= user.id %>"><%= user.name %></option>
+                        <% }); %>
+                    <% } else{ %>  
+                        <% staff.forEach(user => { %>
+                            <% if(prospect.staffId === user.id){ %>
+                                <option selected value="<%= user.id %>"><%= user.name %></option>
+                            <% } else{ %>  
+                                <option value="<%= user.id %>"><%= user.name %></option>
+                            <% } %>
+                        <% }); %>
+                    <% } %>
+                </select>
+            </div>
+            <div class="data-input note">
+                <label for="note">Nota</label>
+                <textarea class="input-add note-add-new-client" name="note" cols="30" rows="5" placeholder="Nota"><%= prospect.note %></textarea>
+            </div>
+        </div>
+    </div>
+</section>

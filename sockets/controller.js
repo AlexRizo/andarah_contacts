@@ -42,7 +42,7 @@ const getProspectsAsignedTo = async(isStaff, value) => {
     if (!isStaff) {
         return await User.findAndCountAll({ where: { 'staffId': value, 'contact_status': false } });
     } else {
-        return await User.findAndCountAll({ where: { 'contact_status': value } });
+        return await User.findAndCountAll({ where: { 'staffId': value } });
     }    
 }
 
@@ -127,7 +127,7 @@ const socketController = async(socket = new Socket(), io) => {
             if (response.staff === 3) {
                 return socket.emit('prospects-asigned', { prospects: await getProspectsAsignedTo(false, response.id) });
             } else {
-                return socket.emit('prospects-asigned', { prospects: await getProspectsAsignedTo(true, 0) });
+                return socket.emit('prospects-asigned', { prospects: await getProspectsAsignedTo(true, null), admin: true });
             }
         }
     });
