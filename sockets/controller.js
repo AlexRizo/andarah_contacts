@@ -143,7 +143,16 @@ const socketController = async(socket = new Socket(), io) => {
         const prospects = await User.findAndCountAll();
 
         return socket.emit('all-prospects', { prospects });
-    })
+    });
+
+    // TODO: update prospect:
+    socket.on('update-prospect', async({ formData }) => {
+        try {
+            await User.update(formData, { where: { 'id' : formData.id } });
+        } catch (error) {
+            return console.log(error);
+        }
+    });
 }
 
 export default socketController;

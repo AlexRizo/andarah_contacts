@@ -6,6 +6,7 @@ export const emailUnique = async(email = '') => {
     });
 
     if (user) {
-        throw new Error('Ya existe una cuenta con esa dirección de correo');
+        console.log('Ya existe una cuenta con ese correo.');
+        return { error: 'Ya existe una cuenta con ese correo.' };
     }
 }

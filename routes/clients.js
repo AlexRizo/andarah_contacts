@@ -39,6 +39,19 @@ router.post('/create', [ // TODO: This route is for internal use;
 ], postClient);
 
 router.put('/update', [
+    check('name', 'El nombre es obligatorio.').not().isEmpty(),
+    check('email', 'El email es obligatorio.').not().isEmpty(),
+    check('email', 'El email no es correcto.').isEmail(),
+    check('city', 'la cuidad es obligatoria.').not().isEmpty(),
+    check('phone_number', 'El teléfono es obligatorio.').not().isEmpty(),
+    check('phone_number', 'El teléfono no es valido.').isMobilePhone(),
+    check('reason', 'El motivo es obligatorio.').not().isEmpty(),
+    check('date_contact', 'la fecha de contacto es obligatoria.').not().isEmpty(),
+    check('contact_status', 'Dato incorrecto').isBoolean(),
+    check('origin', 'El origen es obligatorio.').not().isEmpty(),
+    check('pl', 'pl es obligatorio.').not().isEmpty(),
+    check('gr', 'gr es obligatorio.').not().isEmpty(),
+    validateFields,
     jsonWebToken
 ], updateClient)
 

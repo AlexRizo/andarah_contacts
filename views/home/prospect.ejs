@@ -1,52 +1,66 @@
 <section class="prospect-section">
-    <div class="prospect">
+    <form method="post" class="prospect">
         <div class="t-section">
             <span class="t-data-section-title">Prospecto <%= prospect.id %> | <%= prospect.name %></span>
+            <span>
+                <input type="checkbox" name="edit" id="edit" class="checkbox-edit">
+                <label for="edit" class="lbl-edit">Habilitar campos</label>
+            </span>
         </div>
         <div class="prospect-data">
+            <input type="hidden" name="id" value="<%= prospect.id %>">
             <div class="data-input name">
                 <label for="name">Nombre</label>
-                <input class="input-add" type="text" name="name" value="<%= prospect.name %>">
+                <input class="input-add" type="text" name="name" value="<%= prospect.name %>" disabled>
             </div>
             <div class="data-input email">
                 <label for="email">Correo</label>
-                <input class="input-add" type="email" name="email" value="<%= prospect.email %>">
+                <input class="input-add" type="email" name="email" value="<%= prospect.email %>" disabled>
             </div>
             <div class="data-input city">
                 <label for="city">Cuidad</label>
-                <input class="input-add" type="text" name="city" value="<%= prospect.city %>">
+                <input class="input-add" type="text" name="city" value="<%= prospect.city %>" disabled>
             </div>
             <div class="data-input phone_number">
                 <label for="phone_number">Teléfono</label>
-                <input class="input-add" type="text" name="phone_number" value="<%= prospect.phone_number %>">
+                <input class="input-add" type="text" name="phone_number" value="<%= prospect.phone_number %>" disabled>
             </div>
             <div class="data-input reason">
                 <label for="reason">Motivo</label>
-                <input class="input-add" type="text" name="reason" value="<%= prospect.reason %>">
+                <input class="input-add" type="text" name="reason" value="<%= prospect.reason %>" disabled>
             </div>
             <div class="data-input contact_status">
                 <label for="contact_status">Contactado</label>
-                <input class="input-add" type="text" name="contact_status" value="<%= prospect.contact_status %>">
+                <select class="input-add" type="text" name="contact_status" disabled>
+
+                    <% if(prospect.contact_status){ %>
+                        <option value="0">Pendiente</option>
+                        <option selected value="1">Contactado</option>
+                    <% } else{ %>  
+                        <option selected value="0">Pendiente</option>
+                        <option value="1">Contactado</option>
+                    <% } %>
+                </select>
             </div>
             <div class="data-input origin">
                 <label for="origin">Origen</label>
-                <input class="input-add" type="text" name="origin" value="<%= prospect.origin %>">
+                <input class="input-add" type="text" name="origin" value="<%= prospect.origin %>" disabled>
             </div>
             <div class="data-input date_contact">
                 <label for="date_contact">Fecha de Envío</label>
-                <input class="input-add" type="date" name="date_contact" value="<%= prospect.date_contact %>">
+                <input class="input-add" type="date" name="date_contact" value="<%= prospect.date_contact %>" disabled>
             </div>
             <div class="data-input pl">
                 <label for="pl">Plataforma</label>
-                <input class="input-add" type="text" name="pl" value="<%= prospect.pl %>">
+                <input class="input-add" type="text" name="pl" value="<%= prospect.pl %>" disabled>
             </div>
             <div class="data-input gr">
                 <label for="gr">Grupo</label>
-                <input class="input-add" type="text" name="gr" value="<%= prospect.gr %>">
+                <input class="input-add" type="text" name="gr" value="<%= prospect.gr %>" disabled>
             </div>
             <div class="data-input staffId">
-                <label for="staffId">Asignado a</label>
-                <select name="staffId" class="input-add">
+                <label for="staffId">Asignado a:</label>
+                <select name="staffId" class="input-add" disabled>
                     <% if(prospect.staffId === null){ %>
                         <option value="">Sin Asignar</option>
                         <% staff.forEach(user => { %>
@@ -65,8 +79,14 @@
             </div>
             <div class="data-input note">
                 <label for="note">Nota</label>
-                <textarea class="input-add note-add-new-client" name="note" cols="30" rows="5" placeholder="Nota"><%= prospect.note %></textarea>
+                <textarea class="input-add note-add-new-client" name="note" cols="30" rows="5" placeholder="Nota" disabled><%= prospect.note %></textarea>
             </div>
         </div>
-    </div>
+        <div class="prospect-footer">
+            <button disabled="disabled" class="btn-add btnOff">Guardar</button>
+        </div>
+    </form>
 </section>
+
+<script src='http://localhost:3000/socket.io/socket.io.js'></script>
+<script src="/js/prospect.js"></script>

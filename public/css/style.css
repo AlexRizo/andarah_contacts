@@ -516,10 +516,51 @@ body {
     margin: 10px 20px;
 }
 
+.checkbox-edit {
+    display: none;
+}
+
+.lbl-edit {
+    position: relative;
+    padding-left: 20px;
+}
+
+.lbl-edit::before {
+    border: 1px solid gray;
+    border-radius: 3px;
+    width: 14px;
+    height: 14px;
+    content: ' ';
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: 0px;
+    top: 5px;
+}
+
+.prospect-footer {
+    display: flex;
+    justify-content: end;
+    background: var(--sec-color);
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 0 0 3px 3px;
+}
+
+.checkbox-edit:checked + .lbl-edit::before {
+    background-color: #3D6FE3;
+}
+
+
 /* <------------------- { } -------------------> */
 
 .hidden__true {
     display: none;
+}
+
+.btnOff {
+    opacity: 60%;
 }
 
 /* <------------------- { } -------------------> */
