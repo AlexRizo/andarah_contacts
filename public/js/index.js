@@ -45,7 +45,10 @@ const createTable = (clients) => {
     clients.forEach(client => {
         table.innerHTML += `
             <div class="table-row ${ ((client.contact_status) != true ? 'row-pending' : '') }">
-                <span class="table-data" onclick="editClient(${client.id})"><i class="fa-regular fa-pen-to-square"></i></span>
+                <div class="table-data">
+                    <span onclick="editClient(${client.id})" style="margin-right:15px;"><i class="fa-regular fa-pen-to-square"></i></span>
+                    <a href="${ url }/client/view/${ client.id }"><i class="fa-solid fa-eye"></i></a>
+                </div>
                 <span class="table-data">${ client.name           }</span>
                 <span class="table-data">${ client.email          }</span>
                 <span class="table-data">${ client.city           }</span>

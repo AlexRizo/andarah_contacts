@@ -30,13 +30,19 @@ export const getClients = async(req, res) => {
 }
 
 export const updateClient = async(req, res) => {
-    const {id, ...data} = req.body;
+    const { id, ...data } = req.body;
 
-    await User.update(data, { where: { 'id': id } });
+    
+    if (!data.staffId) {
+        data.staffId = null;
+    }
 
-    const clients = await User.findAll({ include: { model: Staff } });
-
-    res.json({ clients });
+    try {
+        await User.update(data, { where: { 'id': id } });
+        res.json({ response: 'Prospecto Actualizado.' });
+    } catch (error) {
+        return { error };
+    }
 }
 
 export const addPage = async(req, res) => {

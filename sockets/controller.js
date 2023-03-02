@@ -124,7 +124,7 @@ const socketController = async(socket = new Socket(), io) => {
         if (response.error) {
             return console.log(response.error);
         } else {
-            if (response.staff === 3) {
+            if (response.staff === 1) {
                 return socket.emit('prospects-asigned', { prospects: await getProspectsAsignedTo(false, response.id) });
             } else {
                 return socket.emit('prospects-asigned', { prospects: await getProspectsAsignedTo(true, null), admin: true });
@@ -147,11 +147,21 @@ const socketController = async(socket = new Socket(), io) => {
 
     // TODO: update prospect:
     socket.on('update-prospect', async({ formData }) => {
-        try {
-            await User.update(formData, { where: { 'id' : formData.id } });
-        } catch (error) {
-            return console.log(error);
+        if (!formData.staffId) {
+            formData.staffId = 'null';
         }
+        
+
+        // try {
+        //     await User.update(formData, { where: { 'id' : formData.id } });
+        //     socket.on('send-notification', ({ id, msg = "Se te ha asignado un nuevo cliente." }) => {
+        //         socket.to(`r${id}`).emit('notification', { msg });
+        //     });
+        //     socket.emit('updating-complete', { stat: true });
+        // } catch (error) {
+        //     socket.emit('error-update', { stat: false, error });
+        //     return console.log(error);
+        // }
     });
 }
 

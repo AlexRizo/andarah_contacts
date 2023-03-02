@@ -169,7 +169,7 @@ const init = async() => {
             title.innerText = 'Usuarios';
         }
         
-        if (role != 3) {
+        if (role != 1) {
             usersSection.removeAttribute('hidden');
         } else {
             page.removeChild(usersSection);

@@ -10,6 +10,7 @@ const selects = document.querySelectorAll('select');
 const textarea = document.querySelector('textarea');
 const btnSave = document.querySelector('button');
 const form = document.querySelector('form');
+const divErrors = document.querySelector('.errors');
 
 let socket;
 
@@ -43,6 +44,34 @@ edit.addEventListener('click', () => {
     toggleInputs();
 });
 
+const checkFields = () => {
+    const fields = {};
+    let status = true;
+
+    for (const inp of inputs) {
+        if (!inp.value) {
+            fields[inp.name] = {name: inp.name, value: null};
+            status = false;
+        }
+    }
+
+    for (const sel of selects) {
+        if (!sel.value) {
+            if (sel.name != 'staffId') {
+                fields[inp.name] ={name: sel.name, value: null};
+                status = false;
+            }
+        }
+    }
+
+    if (!textarea.value) {
+        fields[inp.name] = {name: textarea.name, value: null};
+        status = false;
+    }
+
+    return { status, fields };
+}
+
 form.addEventListener('submit', (ev) => {
     ev.preventDefault();
 
@@ -57,7 +86,14 @@ form.addEventListener('submit', (ev) => {
         formData[selects[0].name] = selects[0].value;
         formData[selects[1].name] = selects[1].value;
         formData[textarea.name] = textarea.value;
+
+        const {status, fields} = checkFields();
         
+        if (!status) {
+            divErrors.innerHTML = inputsForClientsTable(fields);
+            return false;
+        }
+
         fetch(`${ url }/client/update`, {
             body: JSON.stringify(formData),
             method: 'PUT',
@@ -70,8 +106,11 @@ form.addEventListener('submit', (ev) => {
         .then(({ error, response }) => {
             if (error) {
                 alert('Ha ocurrido un error.');
-                
+                console.log(error);
+                return false;
             }
+
+            alert(response);
         })
         .catch(console.error);
     }
@@ -79,7 +118,6 @@ form.addEventListener('submit', (ev) => {
 
 const init = async() => {
     // TODO: ...
-    
     await connectSocket();
 }
 
@@ -101,6 +139,10 @@ const connectSocket = async() => {
     socket.on('notification', ({ id, msg }) => {
         Push.create(msg);
     });
+
+    socket.on('updating-complete', ({ stat }) => {
+        location.reload();
+    })
 }
 
 const main = async() => {

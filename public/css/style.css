@@ -476,7 +476,7 @@ body {
     background: var(--bg-input);
     border: 1px solid var(--border-color);
     border-radius: 3px;
-    color: white;
+    color: black;
 }
 
 .modal-form label {
@@ -498,6 +498,13 @@ body {
     color: var(--danger-col);
     margin: 10px 0;
     text-align: center;
+
+}
+
+.divErrors {
+    display: flex;
+    flex-direction: column;
+    text-align: initial;
 }
 
 .prospect-data {
@@ -541,7 +548,7 @@ body {
 
 .prospect-footer {
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
     background: var(--sec-color);
     padding: 10px;
     border: 1px solid var(--border-color);
