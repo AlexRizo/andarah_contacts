@@ -6,14 +6,51 @@ const token = localStorage.getItem('auth-token') || null;
 
 const form = document.querySelector('form');
 const inputs = document.querySelectorAll('.input-add');
-const btnAdd = document.querySelector('.btn-add')
-const divErrors = document.createElement('div');
+const selects = document.querySelectorAll('select');
+const textarea = document.querySelector('textarea');
+const btnAdd = document.querySelector('.btn-add');
+const divErrors = document.querySelector('.errors');
 
 let socket;
 
 const formData = {};
 
+const checkFields = () => {
+    const fields = {};
+    let status = true;
+
+    for (const inp of inputs) {
+        if (!inp.value) {
+            fields[inp.name] = { name: inp.name, value: null };
+            status = false;
+        }
+    }
+
+    for (const sel of selects) {
+        if (!sel.value) {
+            if (sel.name != 'staffId') {
+                fields[sel.name] = { name: sel.name, value: null };
+                status = false;
+            }
+        }
+    }
+
+    if (!textarea.value) {
+        fields[textarea.name] = { name: textarea.name, value: null };
+        status = false;
+    }
+
+    return { status, fields };
+}
+
 btnAdd.addEventListener('click', (event) => {
+    const { status, fields } = checkFields();
+
+    if (!status) {
+        divErrors.innerHTML = inputsForClientsTable(fields);
+        return false;
+    }
+    
     for (const input of inputs) {
         formData[input.name] = input.value;
     }
@@ -29,9 +66,9 @@ btnAdd.addEventListener('click', (event) => {
     .then(res => res.json())
     .then(({response, error}) => {
         if (error) {
-            divErrors.innerHTML = `<p style="color: red; margin-top: 20px;">* Hay campos obligatorios vacíos.</p>`;
+            alert('Ha ocurrido un error.');
             console.log(error);
-            return form.appendChild(divErrors);
+            return false;
         }
 
         socket.emit('new-client', { status: true });

@@ -209,7 +209,7 @@ body {
     width: 800px;
     padding: 10px;
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
     border: 1px solid var(--border-color);
     border-top: none;
     border-radius: 0 0 3px 3px;

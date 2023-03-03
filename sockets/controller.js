@@ -14,7 +14,7 @@ const jsonWebToken = async(token) => {
             return { error: 'Error 403: Forbidden.'};
         }
 
-        return { staff: staff.role, id };
+        return { staff: staff.roleId, id };
     } catch (error) {
         return { error }
     }
@@ -29,12 +29,12 @@ const updateTableStaff = async(role) => {
     let users;
 
     if (role != 1) {
-        users = await Staff.findAll({ where: { 'role': [2, 3] } , order: [['role', 'DESC']] });
+        users = await Staff.findAll({ where: { 'roleId': [2, 3] } , order: [['roleId', 'DESC']] });
 
         return users;
     }
 
-    return users = await Staff.findAll({ order: [['role', 'DESC']] });
+    return users = await Staff.findAll({ order: [['roleId', 'DESC']] });
 }
 
 // TODO: Obtener prospectos dependiendo de tu user.role:

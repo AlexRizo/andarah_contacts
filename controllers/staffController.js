@@ -1,5 +1,6 @@
 import { encrypt } from "../helpers/handleBcrypt.js";
 import Staff from "../models/staff.js";
+import Role from "../models/role.js";
 
 export const newStaff = async(req, res) => {
     const userInfo = req.body;
@@ -23,16 +24,16 @@ export const profileView = (req, res) => {
 }
 
 export const getSalers = async(req, res) => {
-    const { role } = req.user;
+    const { roleId } = req.user;
     let users;
 
-    if (role != 1) {
-        users = await Staff.findAll({ where: { 'role': [2, 3] }, order: [['role', 'DESC']] });
+    if (roleId != 3) {
+        users = await Staff.findAll({ where: { 'roleId': [1, 2] }, order: [['roleId', 'DESC']], include: { model: Role } });
 
-        return res.json({ salers:users, role });
+        return res.json({ salers:users, role:roleId });
     }
 
-    users = await Staff.findAll({ order: [['role', 'DESC']] });
+    users = await Staff.findAll({ order: [['roleId', 'DESC']], include: { model: Role } });
 
-    res.json({ salers:users, role });
+    res.json({ salers:users, role:roleId });
 }

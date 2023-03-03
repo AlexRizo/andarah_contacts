@@ -1,16 +1,16 @@
 import { Model, DataTypes, Sequelize } from 'sequelize';
 import sequelize from '../connections/database.js';
 
-class Roles extends Model { }
+class Role extends Model { }
   
-Roles.init(
+Role.init(
     {
         id: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true,
         },
-        rol: {
+        name: {
             type: new DataTypes.STRING(128),
             allowNull: false,
         },
@@ -21,4 +21,4 @@ Roles.init(
     },
 );
 
-export default Roles;
+export default Role;

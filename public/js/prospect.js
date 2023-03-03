@@ -50,7 +50,7 @@ const checkFields = () => {
 
     for (const inp of inputs) {
         if (!inp.value) {
-            fields[inp.name] = {name: inp.name, value: null};
+            fields[inp.name] = { name: inp.name, value: null };
             status = false;
         }
     }
@@ -58,14 +58,14 @@ const checkFields = () => {
     for (const sel of selects) {
         if (!sel.value) {
             if (sel.name != 'staffId') {
-                fields[inp.name] ={name: sel.name, value: null};
+                fields[sel.name] = { name: sel.name, value: null };
                 status = false;
             }
         }
     }
 
     if (!textarea.value) {
-        fields[inp.name] = {name: textarea.name, value: null};
+        fields[textarea.name] = { name: textarea.name, value: null };
         status = false;
     }
 

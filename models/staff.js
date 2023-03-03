@@ -1,5 +1,6 @@
 import { Model, DataTypes, Sequelize } from 'sequelize';
 import sequelize from '../connections/database.js';
+import Role from './role.js';
 
 class Staff extends Model { }
   
@@ -27,7 +28,7 @@ Staff.init(
             defaultValue: true,
             allowNull: true,
         },
-        role: {
+        roleId: {
             type: new DataTypes.INTEGER,
             defaultValue: 1,
             allowNull: false,
@@ -38,5 +39,8 @@ Staff.init(
         sequelize, // passing the `sequelize` instance is required
     },
 );
+
+Role.hasMany(Staff, { foreignKey: 'roleId', targetKey:'id' });
+Staff.belongsTo(Role);
 
 export default Staff;

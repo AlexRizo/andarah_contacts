@@ -123,8 +123,8 @@ const createStaffTable = (users) => {
         <div class="config-table-body">
             <span class="t-b">${ user.name }</span>
             <span class="t-b">${ user.email }</span>
+            <span class="t-b">${ user.Role.name}</span>
             <span class="t-b">${ ((user.status === true) ? '<p style="color: #35dc5f">Activo</p>' : '<p style="color: #dc3545">Inactivo</p>') }</span>
-            <span class="t-b"><i class="fa-regular fa-pen-to-square" onclick(editModal(${ user.id }))></i></span>
         </div>
         `;
     });
@@ -162,7 +162,7 @@ const init = async() => {
     .then(({ salers, role }) => {
         createStaffTable(salers);
         Urole = role;
-
+        console.log(salers);
         if (role != 1) {
             title.innerText = 'Vendedores';
         } else {
