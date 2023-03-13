@@ -4,7 +4,7 @@
     --ter-color: #cbcbcb;
     --t-body-color-section: #f8f8f8;
     --t-b-color: #f8f8f8;
-    --border-color: #a8b3cf33;
+    --border-color: #848da542;
     --btn-col: #3D6FE3;
     --btn-hover: #507ce3;
     --bg-modal-color: #0000006b;
@@ -29,12 +29,47 @@ body {
     color: black;
 }
 
+/* <========================== { GENERAL } ============================> */
+
+.section {
+    width: 800px;
+    margin: auto;
+}
+
+.section-header {
+    background: var(--sec-color);
+    border: 1px solid var(--border-color);
+    border-radius: 3px 3px 0 0;
+    padding: 10px;
+}
+
+.section-body {
+    padding: 20px;
+    background: var(--t-b-color);
+    border-right: 1px;
+    border-left: 1px;
+    border-top: 0;
+    border-bottom: 0;
+    border-style: solid;
+    border-color: var(--border-color);
+}
+
+.section-footer {
+    padding: 10px;
+    background: var(--sec-color);
+    border: 1px solid var(--border-color);
+    border-radius: 0 0 3px 3px ;
+}
+
+/*  */
+
 .header {
     width: 100vw;
     display: flex;
     justify-content: space-between;
     background: var(--sec-color);
     padding: 20px 0;
+    margin-bottom: 40px;
 }
 
 .title {
@@ -57,7 +92,6 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 70px 0;
 }
 
 .content {
@@ -195,7 +229,6 @@ body {
 }
 
 .form-header {
-    margin-top: 40px;
     padding: 20px;
     width: 800px;
     background: var(--sec-color);
@@ -310,7 +343,6 @@ body {
 }
 
 .details-section, .prospect-section {
-    margin-top: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -347,10 +379,6 @@ body {
 
 .total-clients {
     margin: 0 15px;
-}
-
-.my-clients-section, .users-section {
-    margin-top: 40px;
 }
 
 .general-section, .users-section, .my-clients-section, .prospect {
@@ -559,6 +587,10 @@ body {
     background-color: #3D6FE3;
 }
 
+.admin-edit-section {
+    width: 100vw;
+}
+
 
 /* <------------------- { } -------------------> */
 
@@ -571,3 +603,7 @@ body {
 }
 
 /* <------------------- { } -------------------> */
+
+.selected:hover {
+    background: var(--ter-color);
+}

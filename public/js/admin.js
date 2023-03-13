@@ -120,12 +120,12 @@ const createStaffTable = (users) => {
 
     users.forEach(user => {
         staffTableBody.innerHTML += `
-        <div class="config-table-body">
+        <a href="${ url }/details/view/user/${ user.id }" class="config-table-body selected">
             <span class="t-b">${ user.name }</span>
             <span class="t-b">${ user.email }</span>
             <span class="t-b">${ user.Role.name}</span>
-            <span class="t-b">${ ((user.status === true) ? '<p style="color: #35dc5f">Activo</p>' : '<p style="color: #dc3545">Inactivo</p>') }</span>
-        </div>
+            <span class="t-b">${ ((user.status === true) ? '<p style="color: #20dc5f">Activo</p>' : '<p style="color: #dc3545">Inactivo</p>') }</span>
+        </a>
         `;
     });
 }
@@ -141,7 +141,7 @@ const createProspectsTable = (users) => {
 
     users.forEach(user => {
         prospectTableBody.innerHTML += `
-        <a href="${ url }/client/view/${ user.id }" class="prospect-table-body">
+        <a href="${ url }/client/view/${ user.id }" class="prospect-table-body selected">
             <span class="t-b">${ user.name }</span>
             <span class="t-b">${ user.email }</span>
             <span class="t-b">${ user.phone_number}</span>

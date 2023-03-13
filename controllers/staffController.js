@@ -37,3 +37,11 @@ export const getSalers = async(req, res) => {
 
     res.json({ salers:users, role:roleId });
 }
+
+export const singleStaffPage = async(req, res) => {
+    const { id } = req.params;
+
+    const staff = await Staff.findByPk(id);
+    
+    res.render('home/admin/edit', { staff });
+}
