@@ -42,6 +42,7 @@ export const singleStaffPage = async(req, res) => {
     const { id } = req.params;
 
     const staff = await Staff.findByPk(id);
+    const roles = await Role.findAll();
     
-    res.render('home/admin/edit', { staff });
+    res.render('home/admin/edit', { staff, roles });
 }
