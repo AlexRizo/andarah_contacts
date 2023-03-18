@@ -23,6 +23,82 @@ const clinetsAsigned = document.querySelector('.t-clients-section-title');
 let socket;
 let Urole;
 
+const init = async() => {
+    fetch(`${ url }/details/get-salers`, {
+        method: 'GET',
+        headers: {
+            'tkn': token
+        }
+    })
+    .then((response) => response.json())
+    .then(({ salers, role }) => {
+        createStaffTable(salers);
+        Urole = role;
+        if (role != 1) {
+            title.innerText = 'Vendedores';
+        } else {
+            title.innerText = 'Usuarios';
+        }
+        
+        if (role != 1) {
+            usersSection.removeAttribute('hidden');
+        } else {
+            page.removeChild(usersSection);
+        }
+    })
+    .catch(console.error);
+    
+    await connectSocket();
+}
+
+const connectSocket = async() => {
+    socket = io({
+        'extraHeaders': {
+            'tkn': token
+        }
+    });
+
+    socket.on('connect', () => console.log('Socket Online'));
+    
+    socket.on('disconnect', () => {
+        console.log('Socket Offline');
+        localStorage.removeItem('tkn');
+        window.location = url;
+    });
+
+    socket.on('get-staff-data', ({ salers }) => {
+        createStaffTable(salers);
+    });
+    
+    socket.on('notification', ({ id, msg }) => {
+        Push.create(msg)
+    });
+    
+    socket.emit('get-prospects-asigned', { token });
+    
+    socket.on('prospects-asigned', ({ prospects, admin }) => {
+        pendings.innerText = `${ prospects.count }`;
+        clinetsAsigned.innerText = "Pendientes por asignar"
+        createProspectsTable(prospects.rows);
+    });
+
+    socket.on('prospects-modified', ({ status }) => {
+        socket.emit('get-new-prospects', { token });
+    });
+
+    socket.emit('get-all-prospects', { token });
+
+    socket.on('all-prospects', ({ prospects }) => {
+        total.innerText = prospects.count;
+    });
+}
+
+const main = async() => {
+    await init();
+}
+
+main();
+
 const generatePass = () => {
     let pass = '';
     const str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' + 
@@ -150,80 +226,3 @@ const createProspectsTable = (users) => {
         `;
     });
 }
-
-const init = async() => {
-    fetch(`${ url }/details/get-salers`, {
-        method: 'GET',
-        headers: {
-            'tkn': token
-        }
-    })
-    .then((response) => response.json())
-    .then(({ salers, role }) => {
-        createStaffTable(salers);
-        Urole = role;
-        console.log(salers);
-        if (role != 1) {
-            title.innerText = 'Vendedores';
-        } else {
-            title.innerText = 'Usuarios';
-        }
-        
-        if (role != 1) {
-            usersSection.removeAttribute('hidden');
-        } else {
-            page.removeChild(usersSection);
-        }
-    })
-    .catch(console.error);
-    
-    await connectSocket();
-}
-
-const connectSocket = async() => {
-    socket = io({
-        'extraHeaders': {
-            'tkn': token
-        }
-    });
-
-    socket.on('connect', () => console.log('Socket Online'));
-    
-    socket.on('disconnect', () => {
-        console.log('Socket Offline');
-        localStorage.removeItem('tkn');
-        window.location = url;
-    });
-
-    socket.on('get-staff-data', ({ salers }) => {
-        createStaffTable(salers);
-    });
-    
-    socket.on('notification', ({ id, msg }) => {
-        Push.create(msg)
-    });
-    
-    socket.emit('get-prospects-asigned', { token });
-    
-    socket.on('prospects-asigned', ({ prospects, admin }) => {
-        pendings.innerText = `${ prospects.count }`;
-        clinetsAsigned.innerText = "Pendientes por asignar"
-        createProspectsTable(prospects.rows);
-    });
-
-    socket.on('prospects-modified', ({ status }) => {
-        socket.emit('get-new-prospects', { token });
-    });
-
-    socket.emit('get-all-prospects', { token });
-
-    socket.on('all-prospects', ({ prospects }) => {
-        total.innerText = prospects.count;
-    });
-}
-
-const main = async() => {
-    await init();
-}
-
-main();

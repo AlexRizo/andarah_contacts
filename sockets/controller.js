@@ -3,7 +3,9 @@ import { validateJWT } from "../helpers/jwt.js";
 import Staff from "../models/staff.js";
 import User from '../models/user.js'
 import jwt from "jsonwebtoken";
+import { encrypt } from "../helpers/handleBcrypt.js";
 
+// Validar JWT
 const jsonWebToken = async(token) => {
     try {
         const { id } = jwt.verify(token, process.env.SECRETORPRIVATEKEY);
@@ -20,7 +22,7 @@ const jsonWebToken = async(token) => {
     }
 }
 
-// TODO: Admin section:
+// : Admin section:
 const updateTableUsers = async() => {
     return await User.findAll({ include: { model: Staff }, order: [['contact_status', 'ASC']] });
 }
@@ -37,7 +39,7 @@ const updateTableStaff = async(role) => {
     return users = await Staff.findAll({ order: [['roleId', 'DESC']] });
 }
 
-// TODO: Obtener prospectos dependiendo de tu user.role:
+// : obtener prospectos dependiendo de tu user.role:
 const getProspectsAsignedTo = async(isStaff, value) => {
     if (!isStaff) {
         return await User.findAndCountAll({ where: { 'staffId': value, 'contact_status': false } });
@@ -46,8 +48,25 @@ const getProspectsAsignedTo = async(isStaff, value) => {
     }    
 }
 
+// : Actualizar Staff
+const staffUpdate = async(data) => {
+    const {id, password, ...$data} = data;
+    const staff = await Staff.findByPk(id);
 
-// DO: SocketController:
+    if (!staff){
+        return false;
+    }
+    
+    if (password) {
+        $data.password = encrypt(password);
+    }
+
+    await Staff.update($data, { where: { 'id': id } });
+    return true;
+}
+
+
+// TODO: SocketController:
 const socketController = async(socket = new Socket(), io) => {
     const user = await validateJWT(socket.handshake.headers['tkn']);
     if (!user) {
@@ -103,7 +122,7 @@ const socketController = async(socket = new Socket(), io) => {
         io.emit('prospects-modified', { status });
     });
 
-    // TODO: Update prospects asigned when the primary table is modified:
+    // : Update prospects asigned when the primary table is modified:
     socket.on('get-new-prospects', async({ token }) => {
         const response = await jsonWebToken(token);
         if (response.error) {
@@ -117,7 +136,7 @@ const socketController = async(socket = new Socket(), io) => {
         }
     });
 
-    // TODO: Prospects asigned to:
+    // : Prospects asigned to:
     socket.on('get-prospects-asigned', async({ token }) => {
         const response = await jsonWebToken(token);
         if (response.error) {
@@ -131,7 +150,7 @@ const socketController = async(socket = new Socket(), io) => {
         }
     });
 
-    // TODO: get all prespects with a counter: (6, 10, 190, etc.):
+    // : get all prespects with a counter: (6, 10, 190, etc.):
     socket.on('get-all-prospects', async({ token }) => {
         const response = jsonWebToken(token);
 
@@ -144,7 +163,7 @@ const socketController = async(socket = new Socket(), io) => {
         return socket.emit('all-prospects', { prospects });
     });
 
-    // TODO: update prospect:
+    // : update prospect:
     socket.on('update-prospect', async({ formData }) => {
         if (!formData.staffId) {
             formData.staffId = 'null';
@@ -161,6 +180,17 @@ const socketController = async(socket = new Socket(), io) => {
         //     socket.emit('error-update', { stat: false, error });
         //     return console.log(error);
         // }
+    });
+
+    // Editar Staff:
+    socket.on('send-admin-data', async({ formData }) => {
+        const resp = await staffUpdate(formData);
+
+        if (resp) {
+            socket.emit('staff-update-response', { response: 'Usuario actualizado correctamente.', stat: true });
+        } else {
+            socket.emit('staff-update-response', { response: 'Ha ocurrido un error, inténtelo de nuevo.', stat: false });
+        }
     });
 }
 
