@@ -67,6 +67,13 @@ body {
     justify-content: space-between;
 }
 
+.section-message {
+    background: var(--t-b-color);
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+    padding: 20px;
+}
+
 .input-block {
     display: flex;
     flex-direction: column;
@@ -99,7 +106,7 @@ body {
 .table-m {
     margin-bottom: 40px;
 }
-/*  */
+/* <====================== GENERAL ======================> */
 
 .header {
     width: 100vw;
