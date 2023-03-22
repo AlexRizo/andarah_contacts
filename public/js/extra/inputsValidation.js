@@ -28,12 +28,12 @@ const inputsForClientsTable = (object) => {
     const keys = Object.keys(object);
 
     for (const index of keys) {
-        names.push(fields[index])
+        names.push(userTableFields[index])
     }
 
     
     for (let i = 0; i < names.length; i++) {
-        errors += `<span>* El campo ${ names[i] } es obligatorio.</span>`
+        errors += `<span>* El campo ${ names[i] } es obligatorio.</span>`;
     }
 
     return errors;
@@ -46,12 +46,12 @@ const inputsForStaff = (object) => {
     const keys = Object.keys(object);
 
     for (const index of keys) {
-        names.push(fields[index])
+        names.push(staffTableFields[index]);
     }
 
     
     for (let i = 0; i < names.length; i++) {
-        errors += `<span>* El campo ${ names[i] } es obligatorio.</span>`
+        errors += `<span>* El campo ${ names[i] } es obligatorio.</span>`;
     }
 
     return errors;

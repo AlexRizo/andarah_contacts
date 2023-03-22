@@ -7,18 +7,40 @@ const token = localStorage.getItem('auth-token') || null;
 let socket;
 
 const form = document.querySelector('.form-data');
-const inputs = document.querySelectorAll('input');
-const selects = document.querySelectorAll('select');
+const inputs = document.querySelectorAll('.inputs');
 
-const getfieldsData = () => {
+const checkFields = () => {
+    const fields = {};
+    let status = true;
+
+    for (const inp of inputs) {
+        if (inp.name === 'password' && inp.value < 6 || inp.value > 1) {
+            fields[inp.name] = { valid: false };
+            status = false;
+        } else if (inp.name.lenght < 1) {
+            fields[inp.name] = { name: inp.name, value: null };
+            status = false;
+        }
+    }
+
+    // FIXME: select and inputs
+    for (const sel of selects) {
+        if (!sel.value) {
+            if (sel.name != 'staffId') {
+                fields[sel.name] = { name: sel.name, value: null };
+                status = false;
+            }
+        }
+    }
+
+    return { status, fields };
+}
+
+const getfieldsData = () => { 
     let formData = {}
 
     for (const inp of inputs) {
         formData[inp.name] = inp.value;
-    }
-
-    for (const sel of selects) {
-        formData[sel.name] = sel.value;
     }
 
     return formData
@@ -67,5 +89,7 @@ main();
 form.addEventListener('submit', (ev) => {
     ev.preventDefault();
     
-    socket.emit('send-admin-data', { formData: getfieldsData() });
+    console.log(getfieldsData());
+    console.log(checkFields());
+    // socket.emit('send-admin-data', { formData: getfieldsData() });
 })
