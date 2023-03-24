@@ -74,6 +74,10 @@ body {
     padding: 20px;
 }
 
+.messages {
+    padding: 5px 10px;
+}
+
 .input-block {
     display: flex;
     flex-direction: column;

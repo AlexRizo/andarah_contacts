@@ -52,7 +52,7 @@ const getProspectsAsignedTo = async(isStaff, value) => {
 const staffUpdate = async(data) => {
     const {id, password, ...$data} = data;
     const staff = await Staff.findByPk(id);
-
+    
     if (!staff){
         return false;
     }
@@ -185,7 +185,7 @@ const socketController = async(socket = new Socket(), io) => {
     // Editar Staff:
     socket.on('send-admin-data', async({ formData }) => {
         const resp = await staffUpdate(formData);
-
+        
         if (resp) {
             socket.emit('staff-update-response', { response: 'Usuario actualizado correctamente.', stat: true });
         } else {

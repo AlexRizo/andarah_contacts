@@ -8,32 +8,27 @@ let socket;
 
 const form = document.querySelector('.form-data');
 const inputs = document.querySelectorAll('.inputs');
+const divErrors = document.querySelector('.divErrors');
 
 const checkFields = () => {
     const fields = {};
+    let pStatus = true;
     let status = true;
 
     for (const inp of inputs) {
-        if (inp.name === 'password' && inp.value < 6 || inp.value > 1) {
-            fields[inp.name] = { valid: false };
-            status = false;
-        } else if (inp.name.lenght < 1) {
+        if (inp.name === 'password' && inp.value.length < 6 ) {
+            if (inp.value.length != 0) {
+                fields[inp.name] = { valid: false};
+                pStatus = false;
+                status = false;
+            }
+        } else if (inp.value.length < 1) {
             fields[inp.name] = { name: inp.name, value: null };
             status = false;
         }
     }
 
-    // FIXME: select and inputs
-    for (const sel of selects) {
-        if (!sel.value) {
-            if (sel.name != 'staffId') {
-                fields[sel.name] = { name: sel.name, value: null };
-                status = false;
-            }
-        }
-    }
-
-    return { status, fields };
+    return { status, fields, pStatus };
 }
 
 const getfieldsData = () => { 
@@ -70,7 +65,7 @@ const connectSocket = async() => {
     socket.on('staff-update-response', ({ response, stat }) => {
         alert(response);
         if (stat) {
-            window.location = `${ url }/details/config`
+            window.location = `${ url }/details/config`;
         }
     })
 
@@ -88,8 +83,12 @@ main();
 // TODO: ...
 form.addEventListener('submit', (ev) => {
     ev.preventDefault();
+    const { status, fields, pStatus } = checkFields();
+
+    if (!status) {
+        divErrors.innerHTML = inputsForStaff(fields, pStatus);
+        return false;
+    }
     
-    console.log(getfieldsData());
-    console.log(checkFields());
-    // socket.emit('send-admin-data', { formData: getfieldsData() });
+    socket.emit('send-admin-data', { formData: getfieldsData() });
 })

@@ -1,10 +1,10 @@
 <section class="admin-edit-section">
     <form class="section form-data table-m">
         <div class="section-header">
-            <h1>Section Title</h1>
+            <h1><%= staff.name %></h1>
         </div>
         <div class="section-body">
-            <input type="hidden" name="id" value="<%= id %>">
+            <input class="inputs" type="hidden" name="id" value="<%= id %>">
             <div class="input-block">
                 <label for="name">Nombre: </label>
                 <input class="inputs" type="text" name="name" id="name" value="<%= staff.name %>" placeholder="Nombre">
@@ -44,7 +44,6 @@
         </div>
         <div class="section-footer">
             <div class="errors divErrors">
-                <nav>* El campo Nombre es obligatorio.</nav>
             </div>
             <div>
                 <button class="btn-send-form">Send</button>
@@ -55,7 +54,10 @@
     <div class="section">
         <div class="section-message">
             <h4>IMPORTANTE:</h4>
-            <p>Los usuarios inactivos ya no tienen acceso a su cuenta, puedes cambiar esto en cualquier momento.</p>
+            <div class="messages">
+                <p>* Los usuarios <strong>inactivos</strong> ya no tienen acceso a su cuenta, puedes cambiar esto en cualquier momento.</p>
+                <p>* Si el campo <strong>contraseña</strong> se encuentra vacío, no será actualizado.</p>
+            </div>
         </div>
     </div>
 </section>

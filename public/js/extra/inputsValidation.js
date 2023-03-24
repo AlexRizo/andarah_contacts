@@ -39,7 +39,7 @@ const inputsForClientsTable = (object) => {
     return errors;
 }
 
-const inputsForStaff = (object) => {
+const inputsForStaff = (object, pStatus) => {
     let errors = '';
     let names = [];
 
@@ -53,6 +53,8 @@ const inputsForStaff = (object) => {
     for (let i = 0; i < names.length; i++) {
         errors += `<span>* El campo ${ names[i] } es obligatorio.</span>`;
     }
+
+    pStatus === false ? errors += `<span>* La contraseña debe ser mayor a 6 caracteres.</span>` : true;
 
     return errors;
 }
