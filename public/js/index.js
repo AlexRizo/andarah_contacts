@@ -5,15 +5,8 @@ const url = (window.location.hostname.includes('localhost')
 const token = localStorage.getItem('auth-token') || null;
 
 const table = document.querySelector('.table');
-const form = document.querySelector('.form-edit');
-const btnDelete = document.querySelector('.btn-delete');
-const btnSave = document.querySelector('.btn-save');
-const modal = document.querySelector('.modal');
-const quitModal = document.querySelector('.bg-edit-modal');
 
 let socket;
-
-form.get
 
 const init = async() => {
     fetch(`${ url }/client/get`, {
@@ -46,7 +39,7 @@ const createTable = (clients) => {
         table.innerHTML += `
             <div class="table-row ${ ((client.contact_status) != true ? 'row-pending' : '') }">
                 <div class="table-data">
-                    <span onclick="editClient(${client.id})" style="margin-right:15px;"><i class="fa-regular fa-pen-to-square"></i></span>
+                    <span onclick="deleteLead(${ client.id })" style="margin-right:15px;"><i class="fa-solid fa-trash-can" style="color: #bd0000;"></i></span>
                     <a href="${ url }/client/view/${ client.id }"><i class="fa-solid fa-eye"></i></a>
                 </div>
                 <span class="table-data">${ client.name           }</span>
@@ -64,11 +57,6 @@ const createTable = (clients) => {
             </div>
         `;
     });
-}
-
-const editClient = (id) => {
-    socket.emit('get-client-data', { id });
-    modal.classList.toggle('hidden__true');
 }
 
 const checkRow = (id) => {
@@ -101,55 +89,11 @@ const connectSocket = async() => {
     });
 }
 
-quitModal.addEventListener('click', () => {
-    modal.classList.toggle('hidden__true');
-    for (const el of form.elements) {
-        if (el.name) {
-            el.value = '';
-        }
-    }
-});
-
-btnSave.addEventListener('click', () => {
-    const formData = {};
-    
-    for (const inp of form.elements) {
-        formData[inp.name] = inp.value;
-    }
-
-    fetch(`${ url }/client/update`, {
-        method: 'PUT',
-        body: JSON.stringify(formData),
-        headers: {
-            'tkn': token,
-            'Content-Type': 'application/json'
-        }
-    })
-    .then(resp => resp.json())
-    .then(({ clients }) => {
-        createTable(clients);
-        socket.emit('send-notification', { id: formData.staffId });
-        socket.emit('update-prospects-asigned', { status: true });
-    })
-    .catch(console.warn());
-    
-    modal.classList.toggle('hidden__true');
-});
-
-btnDelete.addEventListener('click', () => {
-    const id = document.querySelector('.input').value;
-    
+const deleteLead = (id) => {
     if( confirm('Eliminar?')) {
         socket.emit('delete-client', {id});
     }
-
-    modal.classList.toggle('hidden__true');
-    for (const el of form.elements) {
-        if (el.name) {
-            el.value = '';
-        }
-    }
-});
+}
 
 const main = async() => {
     await init();

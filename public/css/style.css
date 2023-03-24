@@ -91,9 +91,7 @@ body {
     width: 200px;
 }
 
-.inputs {
-    
-}
+.inputs { }
 
 .btn-send-form {
     background: var(--btn-col);
@@ -430,7 +428,7 @@ body {
     text-align: center;
 }
 
-.total-clients {
+.margin-card {
     margin: 0 15px;
 }
 
