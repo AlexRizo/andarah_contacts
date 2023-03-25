@@ -22,8 +22,7 @@ const init = async() => {
         console.error(error)
         localStorage.removeItem('auth-token');
         window.location = url;
-    })
-
+    });
 }
 
 const createTable = (clients) => {
@@ -90,8 +89,8 @@ const connectSocket = async() => {
 }
 
 const deleteLead = (id) => {
-    if( confirm('Eliminar?')) {
-        socket.emit('delete-client', {id});
+    if( confirm('Desea eliminar el registro? \nEsta acción no se puede deshacer.')) {
+        socket.emit('delete-client', { id });
     }
 }
 

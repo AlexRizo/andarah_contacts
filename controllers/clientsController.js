@@ -46,7 +46,7 @@ export const updateClient = async(req, res) => {
 }
 
 export const addPage = async(req, res) => {
-    const staff = await Staff.findAll({ where: { 'roleId': [2, 3] } });
+    const staff = await Staff.findAll({ where: { 'roleId': [2, 1] } });
 
     res.render('home/new', { staff });
 }

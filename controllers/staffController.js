@@ -46,3 +46,7 @@ export const singleStaffPage = async(req, res) => {
     
     res.render('home/admin/edit', { staff, roles, id});
 }
+
+export const validateRole = async(req, res) => {
+    req
+}
