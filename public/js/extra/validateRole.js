@@ -5,9 +5,26 @@ const $url = (window.location.hostname.includes('localhost')
 const $token = localStorage.getItem('auth-token') || null;
 
 const $init = async() => {
-    const userId = /^(\w+):\/\/([^\/]+)([^]+)$/.exec(window.location.href);
-    console.log(userId);
-    // fetch(`${ url }/details/config/`)
+    const urlQuery = window.location.href.split('/');
+    const userData = { id: urlQuery[urlQuery.length - 1] }
+
+    console.log(userData);
+
+    fetch(`${ $url }/details/validate-role`, {
+        method: 'POST',
+        body: JSON.stringify(userData),
+        headers: {
+            'tkn': $token,
+            'Content-Type': 'application/json'
+        }
+    })
+    .then((response) => response.json())
+    .then(({ status }) => {
+        if (!status) {
+            return window.location = $url + '/401';
+        }
+    })
+    .catch(console.error);
 }
 
 const $main = async() => {

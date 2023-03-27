@@ -38,6 +38,8 @@ const getfieldsData = () => {
         formData[inp.name] = inp.value;
     }
 
+    console.log(formData);
+
     return formData
 }
 

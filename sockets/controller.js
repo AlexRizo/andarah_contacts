@@ -50,11 +50,15 @@ const getProspectsAsignedTo = async(isStaff, value) => {
 
 // : Actualizar Staff
 const staffUpdate = async(data) => {
-    const {id, password, ...$data} = data;
+    const {id, password, roleId, ...$data} = data;
     const staff = await Staff.findByPk(id);
     
     if (!staff){
         return false;
+    }
+
+    if(roleId != "null"){
+        $data.roleId = roleId;
     }
     
     if (password) {
@@ -168,18 +172,6 @@ const socketController = async(socket = new Socket(), io) => {
         if (!formData.staffId) {
             formData.staffId = 'null';
         }
-        
-
-        // try {
-        //     await User.update(formData, { where: { 'id' : formData.id } });
-        //     socket.on('send-notification', ({ id, msg = "Se te ha asignado un nuevo cliente." }) => {
-        //         socket.to(`r${id}`).emit('notification', { msg });
-        //     });
-        //     socket.emit('updating-complete', { stat: true });
-        // } catch (error) {
-        //     socket.emit('error-update', { stat: false, error });
-        //     return console.log(error);
-        // }
     });
 
     // Editar Staff:

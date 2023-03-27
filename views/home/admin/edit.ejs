@@ -21,9 +21,11 @@
             </div>
             <div class="input-block">
                 <label for="role">Rol:</label>
-                <select class="inputs" name="role" id="role">
-                    <% roles.forEach(role => { %>
-                        <% if(role.id === staff.roleId){ %>
+                <select class="inputs" name="roleId" id="role">
+                    <% roles.reverse().forEach(role => { %>
+                        <% if(role.id === 3){ %>
+                            <option selected value="null">SELECIONAR</option>
+                        <% } else if(role.id === staff.roleId){ %>
                             <option selected value="<%= role.id %>"><%= role.name %></option>
                         <% } else{ %>  
                             <option value="<%= role.id %>"><%= role.name %></option>

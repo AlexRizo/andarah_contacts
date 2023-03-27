@@ -60,6 +60,10 @@ class Server {
         this.app.use(this.paths.staff, staffsRouter);
         this.app.use(this.paths.auth, authRouter);
 
+        this.app.get('/401', (req, res) => {
+            res.sendFile(path.join(__dirname, '../public/errors', '401.html'));
+        });
+
         this.app.get('*', (req, res) => {
             res.sendFile(path.join(__dirname, '../public/errors', '404.html'));
         });

@@ -48,5 +48,14 @@ export const singleStaffPage = async(req, res) => {
 }
 
 export const validateRole = async(req, res) => {
-    req
+    const { id } = req.body;
+    const staff = req.user; // user wich needs edit
+
+    const user = await Staff.findByPk(id);
+
+    if (user.roleId === 3 && staff.roleId < user.roleId) {
+        return res.json({status: false});
+    }
+
+    res.json({status: true})
 }

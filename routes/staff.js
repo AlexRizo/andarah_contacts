@@ -19,12 +19,13 @@ router.post('/create-new', [
     validateFields,
 ], newStaff);
 
+router.post('/validate-role', jsonWebToken, validateRole)
+
 router.get('/config', profileView);
 
 router.get('/view/user/:id', validateURLStaffIdParam, singleStaffPage);
 
 router.get('/get-salers', jsonWebToken, getSalers);
 
-router.post('/validate-role', jsonWebToken, validateRole)
 
 export default router;
