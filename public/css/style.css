@@ -112,6 +112,12 @@ body {
 .table-m {
     margin-bottom: 40px;
 }
+
+.void-table {
+    display: flex;
+    justify-content: center;
+    color: gray;
+}
 /* <====================== GENERAL ======================> */
 
 .header {

@@ -21,7 +21,7 @@ const $init = async() => {
     .then((response) => response.json())
     .then(({ status }) => {
         if (!status) {
-            return window.location = $url + '/401';
+            return window.location = `${ $url }/401`;
         }
     })
     .catch(console.error);

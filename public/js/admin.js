@@ -35,9 +35,11 @@ const init = async() => {
         createStaffTable(salers);
         Urole = role;
         if (role != 1) {
-            title.innerText = 'Vendedores';
-        } else {
             title.innerText = 'Usuarios';
+            clinetsAsigned.innerText = "Pendientes por asignar"
+        } else {
+            title.innerText = 'Vendedores';
+            clinetsAsigned.innerText = "Pendientes por contactar"
         }
         
         if (role != 1) {
@@ -78,18 +80,11 @@ const connectSocket = async() => {
     
     socket.on('prospects-asigned', ({ prospects, admin }) => {
         pendings.innerText = `${ prospects.count }`;
-        clinetsAsigned.innerText = "Pendientes por asignar"
         createProspectsTable(prospects.rows);
     });
 
     socket.on('prospects-modified', ({ status }) => {
         socket.emit('get-new-prospects', { token });
-    });
-
-    socket.emit('get-all-prospects', { token });
-
-    socket.on('all-prospects', ({ prospects }) => {
-        total.innerText = prospects.count;
     });
 }
 
@@ -215,14 +210,22 @@ const createProspectsTable = (users) => {
         }
     }
 
-    users.forEach(user => {
-        prospectTableBody.innerHTML += `
-        <a href="${ url }/client/view/${ user.id }" class="prospect-table-body selected">
-            <span class="t-b">${ user.name }</span>
-            <span class="t-b">${ user.email }</span>
-            <span class="t-b">${ user.phone_number}</span>
-            <span class="t-b">Pendiente por asignar</span>
-        </a>
+    if (users.length === 0) {
+        prospectTableBody.innerHTML = `
+        <div class="void-table">
+            <span class="t-b">Sin prospectos pendientes</span>
+        </div>
         `;
-    });
+    } else {
+        users.forEach(user => {
+            prospectTableBody.innerHTML += `
+            <a href="${ url }/client/view/${ user.id }" class="prospect-table-body selected">
+                <span class="t-b">${ user.name }</span>
+                <span class="t-b">${ user.email }</span>
+                <span class="t-b">${ user.phone_number}</span>
+                <span class="t-b">Pendiente</span>
+            </a>
+            `;
+        });
+    }
 }

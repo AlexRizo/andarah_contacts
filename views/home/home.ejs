@@ -21,38 +21,5 @@
     </div>
 </section>
 
-<!-- <div class="modal hidden__true">
-    <div class="bg-edit-modal"></div>
-    <div class="card">
-        <h1>Editar Cliente</h1>
-        <form class="form-edit">
-            <input class="input" name="id" type="hidden">
-            <label class="lbl-input-add" for="name">Nombre:</label>
-            <input class="input" type="text" name="name" placeholder="Nombre">
-            <label class="lbl-input-add" for="email">Correo</label>
-            <input class="input" type="text" name="email" placeholder="Correo Electrónico">
-            <label class="lbl-input-add" for="city">Ciudad</label>
-            <input class="input" type="text" name="city" placeholder="Ciudad">
-            <label class="lbl-input-add" for="phone_number">Número de Teléfono</label>
-            <input class="input" type="tel" name="phone_number" placeholder="Teléfono" maxlength="15" autocomplete="off">
-            <label class="lbl-input-add" for="reason">Motivo</label>
-            <input class="input" type="text" name="reason" placeholder="Motivo">
-            <label class="lbl-input-add" for="staffId">Asignado a</label>
-            <select class="input" type="number" name="staffId">
-                <% staff.forEach(user => { %>
-                    <option value="<%= user.id %>"><%= user.name %></option>
-                <% }); %>
-            </select>
-            <label class="lbl-input-add" for="note">Nota</label>
-            <textarea class="input" name="note" cols="30" rows="10" placeholder="Nota"></textarea>
-
-            <div class="actions">
-                <input class="btn-delete" type="button" value="Eliminar">
-                <input class="btn-save" type="button" value="Guardar">
-            </div>
-        </form>
-    </div>
-</div> -->
-
 <script src='http://localhost:3000/socket.io/socket.io.js'></script>
 <script src="/js/index.js"></script>

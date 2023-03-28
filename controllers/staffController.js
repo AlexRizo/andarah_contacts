@@ -1,5 +1,6 @@
 import { encrypt } from "../helpers/handleBcrypt.js";
 import Staff from "../models/staff.js";
+import User from "../models/user.js";
 import Role from "../models/role.js";
 
 export const newStaff = async(req, res) => {
@@ -19,8 +20,12 @@ export const newStaff = async(req, res) => {
     }
 }
 
-export const profileView = (req, res) => {
-    res.render('home/admin');
+export const profileView = async(req, res) => {
+    const prospects = await User.findAndCountAll();
+    const prosContacted = await User.findAndCountAll({ where: {'contact_status': 1 } })
+    
+    
+    res.render('home/admin', { prospects, prosContacted });
 }
 
 export const getSalers = async(req, res) => {
@@ -54,8 +59,12 @@ export const validateRole = async(req, res) => {
     const user = await Staff.findByPk(id);
 
     if (user.roleId === 3 && staff.roleId < user.roleId) {
-        return res.json({status: false});
+        return res.json({ status: false });
     }
 
-    res.json({status: true})
+    if (staff.roleId === 1) {
+        return res.json({ status: false });
+    }
+
+    res.json({ status: true })
 }

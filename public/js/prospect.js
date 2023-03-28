@@ -87,7 +87,7 @@ form.addEventListener('submit', (ev) => {
         formData[selects[1].name] = selects[1].value;
         formData[textarea.name] = textarea.value;
 
-        const {status, fields} = checkFields();
+        const { status, fields } = checkFields();
         
         if (!status) {
             divErrors.innerHTML = inputsForClientsTable(fields);
@@ -111,6 +111,7 @@ form.addEventListener('submit', (ev) => {
             }
 
             alert(response);
+            socket.emit('send-notification', { id: formData.staffId })
         })
         .catch(console.error);
     }
