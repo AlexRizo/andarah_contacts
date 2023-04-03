@@ -15,6 +15,33 @@ let socket;
 
 const formData = {};
 
+const init = async() => {
+    // TODO: ...
+    
+    await connectSocket();
+}
+
+const connectSocket = async() => {
+    socket = io({
+        'extraHeaders': {
+            'tkn': token
+        }
+    });
+
+    socket.on('connect', () => console.log('Socket Online'));
+
+    socket.on('disconnect', () => {
+        console.log('Socket Offline');
+        localStorage.removeItem('tkn');
+        window.location = url;
+    });
+
+    socket.on('notification', ({ id, msg }) => {
+        sendNotification('Nuevo Lead', msg);
+    });
+}
+
+
 const checkFields = () => {
     const fields = {};
     let status = true;
@@ -70,39 +97,14 @@ btnAdd.addEventListener('click', (event) => {
             console.log(error);
             return false;
         }
-
-        socket.emit('new-client', { status: true });
+        
         alert(response);
+        socket.emit('new-client', { status: true});
+        socket.emit('send-notification', { id: formData.staffId });
         window.location = `${ url }/home`
     })
     .catch(console.error);
 });
-
-const init = async() => {
-    // TODO: ...
-    
-    await connectSocket();
-}
-
-const connectSocket = async() => {
-    socket = io({
-        'extraHeaders': {
-            'tkn': token
-        }
-    });
-
-    socket.on('connect', () => console.log('Socket Online'));
-
-    socket.on('disconnect', () => {
-        console.log('Socket Offline');
-        localStorage.removeItem('tkn');
-        window.location = url;
-    });
-
-    socket.on('notification', ({ id, msg }) => {
-        Push.create(msg)
-    });
-}
 
 const main = async() => {
     await init();

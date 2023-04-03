@@ -138,7 +138,7 @@ const connectSocket = async() => {
     });
 
     socket.on('notification', ({ id, msg }) => {
-        Push.create(msg);
+        sendNotification('Nuevo Lead', msg);
     });
 
     socket.on('updating-complete', ({ stat }) => {

@@ -115,10 +115,11 @@ const socketController = async(socket = new Socket(), io) => {
     });
 
     socket.on('new-client', async({ status }) => {
-        io.emit('update-table', { clients: await updateTableUsers() }); 
+        io.emit('update-table', { clients: await updateTableUsers() });
     });
 
     socket.on('send-notification', ({ id, msg = "Se te ha asignado un nuevo cliente." }) => {
+        console.log('<------------------------------------ { object } --------------------------------------->');
         socket.to(`r${id}`).emit('notification', { msg });
     });
 

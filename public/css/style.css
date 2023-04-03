@@ -328,15 +328,14 @@ body {
 }
 
 .add-section {
-    width: 100vw;
+    display: flex;
+    justify-content: center;
 }
 
 .form-body {
-    min-width: 1920px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: auto;
 }
 
 .modal {
