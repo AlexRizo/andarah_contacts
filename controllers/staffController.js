@@ -43,6 +43,10 @@ export const getSalers = async(req, res) => {
     res.json({ salers:users, role:roleId });
 }
 
+export const newStaffPage = (req, res) => {
+    res.render('home/admin/new-admin');
+}
+
 export const singleStaffPage = async(req, res) => {
     const { id } = req.params;
 
@@ -53,18 +57,11 @@ export const singleStaffPage = async(req, res) => {
 }
 
 export const validateRole = async(req, res) => {
-    const { id } = req.body;
     const staff = req.user; // user wich needs edit
-
-    const user = await Staff.findByPk(id);
-
-    if (user.roleId === 3 && staff.roleId < user.roleId) {
-        return res.json({ status: false });
-    }
 
     if (staff.roleId === 1) {
         return res.json({ status: false });
-    }
+    }   
 
     res.json({ status: true })
 }

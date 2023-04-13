@@ -10,26 +10,28 @@ const form = document.querySelector('.form-data');
 const inputs = document.querySelectorAll('.inputs');
 const divErrors = document.querySelector('.divErrors');
 
-const checkFields = () => {
+const checkFields = () => {    
     const fields = {};
     let pStatus = true;
     let status = true;
 
     for (const inp of inputs) {
-        if (inp.name === 'password' && inp.value.length < 6 ) {
-            if (inp.value.length != 0) {
-                fields[inp.name] = { valid: false};
+        if (inp.name != 'repeatPass') {
+            if (inp.name === 'password' && inp.value.length < 6 ) {
+                if (inp.value != document.getElementsByName('repeatPassword')) {
+                    divErrors.innerHTML = ``
+                }
                 pStatus = false;
                 status = false;
+            } else if (inp.value.length < 1) {
+                fields[inp.name] = { name: inp.name, value: null };
+                status = false;
             }
-        } else if (inp.value.length < 1) {
-            fields[inp.name] = { name: inp.name, value: null };
-            status = false;
         }
     }
-
+    
     return { status, fields, pStatus };
-}
+} 
 
 const getfieldsData = () => { 
     let formData = {}
@@ -64,13 +66,6 @@ const connectSocket = async() => {
         window.location = url;
     });
 
-    socket.on('staff-update-response', ({ response, stat }) => {
-        alert(response);
-        if (stat) {
-            window.location = `${ url }/details/config`;
-        }
-    })
-
     socket.on('notification', ({ id, msg }) => {
         sendNotification('Nuevo Lead', msg);
     });
@@ -82,7 +77,7 @@ const main = async() => {
 
 main();
 
-// TODO: ...
+// TODO:...
 form.addEventListener('submit', (ev) => {
     ev.preventDefault();
     const { status, fields, pStatus } = checkFields();
@@ -91,6 +86,4 @@ form.addEventListener('submit', (ev) => {
         divErrors.innerHTML = inputsForStaff(fields, pStatus);
         return false;
     }
-    
-    socket.emit('send-admin-data', { formData: getfieldsData() });
-})
+});

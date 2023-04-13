@@ -1,6 +1,6 @@
 const url = (window.location.hostname.includes('localhost')
-            ? 'https://andarah.leadscenter.work'
-            : 'https://andarah.leadscenter.work')
+            ? 'http://localhost:3000'
+            : 'http://localhost:3000')
 
 const token = localStorage.getItem('auth-token') || null;
 

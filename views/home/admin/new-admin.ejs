@@ -1,0 +1,42 @@
+<section>
+    <form class="section form-data">
+        <div class="section-header">
+            <h1>Añadir nuevo usuario</h1>
+        </div>
+        <div class="section-body">
+            <div class="input-block">
+                <label for="name">Nombre: </label>
+                <input class="inputs" type="text" name="name" id="name" placeholder="Nombre">
+            </div>
+            <div class="input-block">
+                <label for="name">Correo: </label>
+                <input class="inputs" type="email" name="email" id="email" placeholder="Correo">
+            </div>
+            <div class="input-block">
+                <label for="status">Rol:</label>
+                <select class="inputs" name="roleId" id="roleId">
+                    <option value="1">Vendedor</option>
+                    <option value="2">Gerente</option>
+                </select>
+            </div>
+            <div class="input-block">
+                <label for="name">Contraseña: </label>
+                <input class="inputs" type="password" name="password" id="password" placeholder="Contraseña">
+            </div>
+            <div class="input-block">
+                <label for="name">Repetir Contraseña: </label>
+                <input class="inputs" type="password" name="repeatPass" placeholder="Contraseña">
+            </div>
+        </div>
+        <div class="section-footer">
+            <div class="errors divErrors">
+            </div>
+            <div>
+                <button class="btn-send-form">Crear</button>
+            </div>
+        </div>
+    </form>
+</section>
+
+<script src='http://localhost:3000/socket.io/socket.io.js'></script>
+<script src="/js/admin/new-admin.js"></script>

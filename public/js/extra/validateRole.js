@@ -1,5 +1,5 @@
 const $url = (window.location.hostname.includes('localhost')
-            ? 'https://andarah.leadscenter.work'
+            ? 'http://localhost:3000'
             : 'https://andarah.leadscenter.work')
 
 const $token = localStorage.getItem('auth-token') || null;
@@ -8,9 +8,7 @@ const $init = async() => {
     const urlQuery = window.location.href.split('/');
     const userData = { id: urlQuery[urlQuery.length - 1] }
 
-    console.log(userData);
-
-    fetch(`${ $url }/details/validate-role`, {
+    await fetch(`${ $url }/details/validate-role`, {
         method: 'POST',
         body: JSON.stringify(userData),
         headers: {

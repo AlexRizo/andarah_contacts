@@ -28,7 +28,7 @@ const inputsForClientsTable = (object) => {
     const keys = Object.keys(object);
 
     for (const index of keys) {
-        names.push(userTableFields[index])
+        names.push(userTableFields[index]);
     }
 
     
@@ -47,8 +47,8 @@ const inputsForStaff = (object, pStatus) => {
 
     for (const index of keys) {
         names.push(staffTableFields[index]);
+        console.log(staffTableFields[index]);
     }
-
     
     for (let i = 0; i < names.length; i++) {
         errors += `<span>* El campo ${ names[i] } es obligatorio.</span>`;
