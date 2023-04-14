@@ -6,6 +6,7 @@ import validateFields from "../middlewares/validateFields.js";
 import jsonWebToken from "../middlewares/jsonWebToken.js";
 import { emailUnique } from "../helpers/dbValidations.js";
 import { validateURLStaffIdParam } from "../middlewares/idValidations.js";
+import { role } from "../middlewares/role.js";
 
 const router = Router();
 
@@ -27,7 +28,7 @@ router.get('/view/user/:id', validateURLStaffIdParam, singleStaffPage);
 
 router.get('/get-salers', jsonWebToken, getSalers);
 
-router.get('/new-staff', newStaffPage);
+router.get('/new-staff', role, newStaffPage);
 
 
 export default router;

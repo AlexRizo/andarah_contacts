@@ -47,7 +47,6 @@ const inputsForStaff = (object, pStatus) => {
 
     for (const index of keys) {
         names.push(staffTableFields[index]);
-        console.log(staffTableFields[index]);
     }
     
     for (let i = 0; i < names.length; i++) {

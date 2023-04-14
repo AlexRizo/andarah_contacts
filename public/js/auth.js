@@ -27,12 +27,11 @@ form.addEventListener('submit', (ev) => {
         }
     })
     .then(response => response.json())
-    .then(({ error, tkn }) => {
+    .then(({ error, tkn, user }) => {
         if (!inputs[0].value || !inputs[1].value) {
             divErrors.innerHTML = `
                 <label for="error" class="lbl-error">* Llena los campos.</label>
             `;
-
             return false;
         }
         
@@ -44,6 +43,7 @@ form.addEventListener('submit', (ev) => {
         }
 
         localStorage.setItem('auth-token', tkn);
+        localStorage.setItem('ur', user.roleId);
         window.location = url + '/home';
     })
     .catch(error => {

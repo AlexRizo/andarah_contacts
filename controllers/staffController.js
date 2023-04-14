@@ -6,6 +6,10 @@ import Role from "../models/role.js";
 export const newStaff = async(req, res) => {
     const userInfo = req.body;
 
+    if (req.user.roleId === 1) {
+        return res.status(401).json({error: 'Acción no permitida.'})
+    }
+
     try {
         userInfo.password = encrypt(userInfo.password);
         await Staff.create(userInfo);
@@ -14,7 +18,7 @@ export const newStaff = async(req, res) => {
     } catch (error) {
         res.json(
             {
-                response: 'Ha ocurrido un error',
+                response: 'Ha ocurrido un error.',
                 error
             });
     }

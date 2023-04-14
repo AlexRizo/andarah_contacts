@@ -18,9 +18,6 @@ const checkFields = () => {
     for (const inp of inputs) {
         if (inp.name != 'repeatPass') {
             if (inp.name === 'password' && inp.value.length < 6 ) {
-                if (inp.value != document.getElementsByName('repeatPassword')) {
-                    divErrors.innerHTML = ``
-                }
                 pStatus = false;
                 status = false;
             } else if (inp.value.length < 1) {
@@ -39,8 +36,6 @@ const getfieldsData = () => {
     for (const inp of inputs) {
         formData[inp.name] = inp.value;
     }
-
-    console.log(formData);
 
     return formData
 }
@@ -86,4 +81,25 @@ form.addEventListener('submit', (ev) => {
         divErrors.innerHTML = inputsForStaff(fields, pStatus);
         return false;
     }
+
+    fetch(`${ url }/details/create-new`, {
+        method: 'POST',
+        headers: {
+            tkn: token,
+            urle: localStorage.getItem('ur'), 
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(getfieldsData())
+    })
+    .then(response => response.json())
+    .then(({ response, error }) => {
+        if (error) {
+            alert(response);
+            return console.error(error);
+        }
+
+        alert(response)
+        return window.location = `${ url }/details/config`
+    })
+    .catch(console.error);
 });
