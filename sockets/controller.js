@@ -114,12 +114,15 @@ const socketController = async(socket = new Socket(), io) => {
         io.emit('update-table', { clients: await updateTableUsers() });
     });
 
+    socket.on('update-prospects-table', async() => {
+        io.emit('update-table', { clients: await updateTableUsers() });
+    });
+
     socket.on('new-client', async({ status }) => {
         io.emit('update-table', { clients: await updateTableUsers() });
     });
 
     socket.on('send-notification', ({ id, msg = "Se te ha asignado un nuevo cliente." }) => {
-        console.log('<------------------------------------ { object } --------------------------------------->');
         socket.to(`r${id}`).emit('notification', { msg });
     });
 
@@ -155,19 +158,6 @@ const socketController = async(socket = new Socket(), io) => {
             }
         }
     });
-
-    // : get all prespects with a counter: (6, 10, 190, etc.):
-    // socket.on('get-all-prospects', async({ token }) => {
-    //     const response = jsonWebToken(token);
-
-    //     if (response.error) {
-    //         return console.log(response.error);
-    //     }
-
-    //     const prospects = await User.findAndCountAll();
-
-    //     return socket.emit('all-prospects', { prospects });
-    // });
 
     // : update prospect:
     socket.on('update-prospect', async({ formData }) => {

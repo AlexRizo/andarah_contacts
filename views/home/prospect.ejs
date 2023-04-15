@@ -43,7 +43,7 @@
             </div>
             <div class="data-input origin">
                 <label for="originId">Origen</label>
-                <select class="input-add" name="plataforma">
+                <select class="input-add" name="originId" disabled>
                     <% origins.forEach(origin => { %>
                         <% if(prospect.originId === origin.id){ %>
                             <option selected value="<%= origin.id %>"><%= origin.name %></option>
@@ -58,8 +58,8 @@
                 <input class="input-add" type="date" name="date_contact" value="<%= prospect.date_contact %>" disabled>
             </div>
             <div class="data-input pl">
-                <label for="pl">Plataforma</label>
-                <select class="input-add" name="platformId">
+                <label for="platformId">Plataforma</label>
+                <select class="input-add" name="platformId" disabled>
                     <% platforms.forEach(platform => { %>
                         <% if(prospect.platformId === platform.id){ %>
                             <option selected value="<%= platform.id %>"><%= platform.name %></option>

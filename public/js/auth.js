@@ -27,7 +27,7 @@ form.addEventListener('submit', (ev) => {
         }
     })
     .then(response => response.json())
-    .then(({ error, tkn, user }) => {
+    .then(({ error, tkn }) => {
         if (!inputs[0].value || !inputs[1].value) {
             divErrors.innerHTML = `
                 <label for="error" class="lbl-error">* Llena los campos.</label>

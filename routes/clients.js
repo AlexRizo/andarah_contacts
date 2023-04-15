@@ -15,8 +15,8 @@ router.post('/zapier/api', [ // TODO: This route is for Zapier;
     check('phone_number', 'El teléfono es obligatorio.').not().isEmpty(),
     check('reason', 'El motivo es obligatorio.').not().isEmpty(),
     check('date_contact', 'la fecha de contacto es obligatoria.').not().isEmpty(),
-    check('origin', 'El origen es obligatorio.').not().isEmpty(),
-    check('pl', 'pl es obligatorio.').not().isEmpty(),
+    check('originId', 'El origen es obligatorio.').not().isEmpty(),
+    check('platformId', 'la plataforma es obligatorio.').not().isEmpty(),
     check('gr', 'gr es obligatorio.').not().isEmpty(),
     validateFields
 ], postClientZapier);
@@ -31,8 +31,8 @@ router.post('/create', [ // TODO: This route is for internal use;
     check('reason', 'El motivo es obligatorio.').not().isEmpty(),
     check('date_contact', 'la fecha de contacto es obligatoria.').not().isEmpty(),
     check('contact_status', 'Dato incorrecto').isBoolean(),
-    check('origin', 'El origen es obligatorio.').not().isEmpty(),
-    check('pl', 'pl es obligatorio.').not().isEmpty(),
+    check('originId', 'El origen es obligatorio.').not().isEmpty(),
+    check('platformId', 'la plataforma es obligatorio.').not().isEmpty(),
     check('gr', 'gr es obligatorio.').not().isEmpty(),
     validateFields,
     jsonWebToken
@@ -48,8 +48,8 @@ router.put('/update', [
     check('reason', 'El motivo es obligatorio.').not().isEmpty(),
     check('date_contact', 'la fecha de contacto es obligatoria.').not().isEmpty(),
     check('contact_status', 'Dato incorrecto').isBoolean(),
-    check('origin', 'El origen es obligatorio.').not().isEmpty(),
-    check('pl', 'pl es obligatorio.').not().isEmpty(),
+    check('originId', 'El origen es obligatorio.').not().isEmpty(),
+    check('platformId', 'la plataforma es obligatorio.').not().isEmpty(),
     check('gr', 'gr es obligatorio.').not().isEmpty(),
     validateFields,
     jsonWebToken

@@ -21,8 +21,11 @@ const toggleInputs = () => {
                 inp.toggleAttribute('disabled');
             }
         }
-        selects[0].toggleAttribute('disabled');
-        selects[1].toggleAttribute('disabled');
+
+        for (const sel of selects) {
+            sel.toggleAttribute('disabled');
+        }
+
         textarea.toggleAttribute('disabled');
         btnSave.toggleAttribute('disabled');
         btnSave.classList.toggle('btnOff');
@@ -32,8 +35,11 @@ const toggleInputs = () => {
                 inp.toggleAttribute('disabled');
             }
         }
-        selects[0].toggleAttribute('disabled');
-        selects[1].toggleAttribute('disabled');
+
+        for (const sel of selects) {
+            sel.toggleAttribute('disabled');
+        }
+
         textarea.toggleAttribute('disabled');
         btnSave.toggleAttribute('disabled');
         btnSave.classList.toggle('btnOff');
@@ -83,8 +89,11 @@ form.addEventListener('submit', (ev) => {
                 formData[inp.name] = inp.value;
             }
         }
-        formData[selects[0].name] = selects[0].value;
-        formData[selects[1].name] = selects[1].value;
+        
+        for (const sel of selects) {
+            formData[sel.name] = sel.value;
+        }
+
         formData[textarea.name] = textarea.value;
 
         const { status, fields } = checkFields();
@@ -111,7 +120,9 @@ form.addEventListener('submit', (ev) => {
             }
 
             alert(response);
+            socket.emit('update-prospects-table');
             socket.emit('send-notification', { id: formData.staffId })
+            window.location = `${ url }/home`
         })
         .catch(console.error);
     }
@@ -140,10 +151,6 @@ const connectSocket = async() => {
     socket.on('notification', ({ id, msg }) => {
         sendNotification('Nuevo Lead', msg);
     });
-
-    socket.on('updating-complete', ({ stat }) => {
-        location.reload();
-    })
 }
 
 const main = async() => {

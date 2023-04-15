@@ -1,0 +1,12 @@
+@media (max-width: 1920px) {
+    .content {
+        width: 1300px;
+    }
+}
+
+
+@media (max-width: 1300px) {
+    .content {
+        width: 800px;
+    }
+}

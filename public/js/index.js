@@ -47,9 +47,7 @@ const createTable = (clients) => {
                 <span class="table-data">${ client.phone_number   }</span>
                 <span class="table-data">${ client.reason         }</span>
                 <span class="table-data">${ client.date_contact   }</span>
-                <span class="table-data">${ client.originId         }</span>
-                <span class="table-data">${ client.pl             }</span>
-                <span class="table-data">${ client.gr             }</span>
+                <span class="table-data">${ client.originId       }</span>
                 <span class="table-data">${ ((client.staffId) != null ? client.Staff.name : 'Sin asignar') }</span>
                 <span class="table-data">${ ((client.note) != null ? client.note : '---') }</span>
                 <span class="table-data"><input class="input-checked" type="checkbox" name="contact_status" ${ ((client.contact_status) === true ? 'checked' : '') } value="Contactado" onclick="checkRow(${ client.id })"></span>
