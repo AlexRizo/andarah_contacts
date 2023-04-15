@@ -43,7 +43,6 @@ form.addEventListener('submit', (ev) => {
         }
 
         localStorage.setItem('auth-token', tkn);
-        localStorage.setItem('ur', user.roleId);
         window.location = url + '/home';
     })
     .catch(error => {

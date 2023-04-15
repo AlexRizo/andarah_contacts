@@ -32,7 +32,6 @@
             <div class="data-input contact_status">
                 <label for="contact_status">Contactado</label>
                 <select class="input-add" type="text" name="contact_status" disabled>
-
                     <% if(prospect.contact_status){ %>
                         <option value="0">Pendiente</option>
                         <option selected value="1">Contactado</option>
@@ -43,8 +42,15 @@
                 </select>
             </div>
             <div class="data-input origin">
-                <label for="origin">Origen</label>
-                <input class="input-add" type="text" name="origin" value="<%= prospect.origin %>" disabled>
+                <label for="originId">Origen</label>
+                <select class="input-add" name="plataforma">
+                    <option value="Web">Web</option>
+                    <option value="WhatsApp">WhatsApp</option>
+                    <option value="Facebook & Instagram">Facebook & Instagram</option>
+                    <option value="Llamada Telefónica">Llamada Telefónica</option>
+                    <option value="Visita al Módulo de Ventas">Visita al Módulo de Ventas</option>
+                    <option value="Otro">Otro</option>
+                </select> 
             </div>
             <div class="data-input date_contact">
                 <label for="date_contact">Fecha de Envío</label>
@@ -52,7 +58,14 @@
             </div>
             <div class="data-input pl">
                 <label for="pl">Plataforma</label>
-                <input class="input-add" type="text" name="pl" value="<%= prospect.pl %>" disabled>
+                <select class="input-add" name="plataforma">
+                    <option value="Web">Web</option>
+                    <option value="WhatsApp">WhatsApp</option>
+                    <option value="Facebook & Instagram">Facebook & Instagram</option>
+                    <option value="Llamada Telefónica">Llamada Telefónica</option>
+                    <option value="Visita al Módulo de Ventas">Visita al Módulo de Ventas</option>
+                    <option value="Otro">Otro</option>
+                </select>
             </div>
             <div class="data-input gr">
                 <label for="gr">Grupo</label>

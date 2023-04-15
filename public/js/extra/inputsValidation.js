@@ -6,7 +6,7 @@ const userTableFields = {
     reason: 'Motivo',
     contact_status: 'Contactado',
     date_contact: 'Fecha de Envío',
-    origin: 'Origen',
+    originId: 'Origen',
     pl: 'Plataforma',
     gr: 'Grupo',
     note: 'Nota',

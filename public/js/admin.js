@@ -5,9 +5,6 @@ const url = (window.location.hostname.includes('localhost')
 const token = localStorage.getItem('auth-token') || null;
 
 const addUser = document.querySelector('.btn-add-user');
-const modal = document.querySelector('.modal-vendedor');
-const bgModal = document.querySelector('.bg-modal-vendedor');
-const form = document.querySelector('.modal-form');
 const inputPass = document.querySelector('.inp-pass');
 const staffTableBody = document.querySelector('.colabs');
 const prospectTableBody = document.querySelector('.prospects');
@@ -109,75 +106,7 @@ const generatePass = () => {
 }
 
 addUser.addEventListener('click', () => {
-    modal.classList.toggle('hidden__true');
-    for (const input of $inputs) {
-        input.value = '';
-    }
-    inputPass.value = generatePass();
-    errors.innerText = '';
-});
-
-bgModal.addEventListener('click', () => modal.classList.toggle('hidden__true'));
-
-form.addEventListener('submit', (ev) => {
-    ev.preventDefault();
-
-    const formData = {};
-    const inputs = {};
-
-    for (const el of form.elements) {
-        if(el.name) {
-            formData[el.name] = el.value;
-            inputs[el.name] = el;
-        }
-    }
-
-    fetch(`${ url }/details/create-new`, {
-        method: 'POST',
-        body: JSON.stringify(formData),
-        headers: {
-            'tkn': token,
-            'Content-Type': 'application/json'
-        }
-    })
-    .then((response) => response.json())
-    .then(({ response, error }) => {
-        let isVoid;
-
-        for (const el of form.elements) {
-            if (el.name) {
-                if (!el.value) {
-                    errors.innerText = '* Completa los campos.';
-                    isVoid = true;
-                    break;
-                }
-            }
-        }
-
-        if (error || isVoid) {
-            if (!error) {
-                return false;
-            } else if (!error.parent){
-                errors.innerText = '* Correo inválido.';
-                return false;       
-            } else if (error.parent.errno === 1062){
-                errors.innerText = '* El correo ya existe.';
-                return false;
-            }else {
-                errors.innerText = '* Ha ocurrido un error.';
-                console.error(error);
-                return false;
-            }
-        }
-        
-        if (response) {
-            console.log(response);
-        }
-
-        socket.emit('get-users', { Urole });
-        modal.classList.toggle('hidden__true');
-    })
-    .catch(console.warn);
+    window.location = `${ url }/details/new-staff?tkn=${ token }`;
 });
 
 const createStaffTable = (users) => {

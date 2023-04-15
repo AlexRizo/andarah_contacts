@@ -86,7 +86,6 @@ form.addEventListener('submit', (ev) => {
         method: 'POST',
         headers: {
             tkn: token,
-            urle: localStorage.getItem('ur'), 
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(getfieldsData())
