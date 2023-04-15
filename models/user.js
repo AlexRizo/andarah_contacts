@@ -2,6 +2,7 @@ import { Model, DataTypes, Sequelize } from 'sequelize';
 import sequelize from '../connections/database.js';
 import Staff from './staff.js';
 import Origin from './origin.js';
+import Platform from './platform.js';
 
 class User extends Model { }
   
@@ -45,9 +46,9 @@ User.init(
             type: DataTypes.INTEGER,
             allowNull: true,
         },
-        pl: {
-            type: new DataTypes.STRING(128),
-            allowNull: false,
+        platformId: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
         },
         gr: {
             type: new DataTypes.STRING(128),
@@ -73,5 +74,8 @@ User.belongsTo(Staff);
 
 Origin.hasMany(User, { foreignKey: 'originId', targetKey:'id', as:'asigned' });
 User.belongsTo(Origin);
+
+Platform.hasMany(User, { foreignKey: 'platformId', targetKey:'id', as:'asigned' });
+User.belongsTo(Platform);
 
 export default User;

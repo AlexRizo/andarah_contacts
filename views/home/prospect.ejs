@@ -44,12 +44,13 @@
             <div class="data-input origin">
                 <label for="originId">Origen</label>
                 <select class="input-add" name="plataforma">
-                    <option value="Web">Web</option>
-                    <option value="WhatsApp">WhatsApp</option>
-                    <option value="Facebook & Instagram">Facebook & Instagram</option>
-                    <option value="Llamada Telefónica">Llamada Telefónica</option>
-                    <option value="Visita al Módulo de Ventas">Visita al Módulo de Ventas</option>
-                    <option value="Otro">Otro</option>
+                    <% origins.forEach(origin => { %>
+                        <% if(prospect.originId === origin.id){ %>
+                            <option selected value="<%= origin.id %>"><%= origin.name %></option>
+                        <% } else{ %>  
+                            <option value="<%= origin.id %>"><%= origin.name %></option>
+                        <% } %>
+                    <% }); %>
                 </select> 
             </div>
             <div class="data-input date_contact">
@@ -58,13 +59,14 @@
             </div>
             <div class="data-input pl">
                 <label for="pl">Plataforma</label>
-                <select class="input-add" name="plataforma">
-                    <option value="Web">Web</option>
-                    <option value="WhatsApp">WhatsApp</option>
-                    <option value="Facebook & Instagram">Facebook & Instagram</option>
-                    <option value="Llamada Telefónica">Llamada Telefónica</option>
-                    <option value="Visita al Módulo de Ventas">Visita al Módulo de Ventas</option>
-                    <option value="Otro">Otro</option>
+                <select class="input-add" name="platformId">
+                    <% platforms.forEach(platform => { %>
+                        <% if(prospect.platformId === platform.id){ %>
+                            <option selected value="<%= platform.id %>"><%= platform.name %></option>
+                        <% } else{ %>  
+                            <option value="<%= platform.id %>"><%= platform.name %></option>
+                        <% } %>
+                    <% }); %>
                 </select>
             </div>
             <div class="data-input gr">
