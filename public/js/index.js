@@ -20,8 +20,8 @@ const init = async() => {
     })
     .catch(error => {
         console.error(error)
-        localStorage.removeItem('auth-token');
-        window.location = url;
+        // localStorage.removeItem('auth-token');
+        // window.location = url;
     });
 }
 
@@ -47,7 +47,7 @@ const createTable = (clients) => {
                 <span class="table-data">${ client.phone_number   }</span>
                 <span class="table-data">${ client.reason         }</span>
                 <span class="table-data">${ client.date_contact   }</span>
-                <span class="table-data">${ client.originId       }</span>
+                <span class="table-data">${ client.Origin.name    }</span>
                 <span class="table-data">${ ((client.staffId) != null ? client.Staff.name : 'Sin asignar') }</span>
                 <span class="table-data">${ ((client.note) != null ? client.note : '---') }</span>
                 <span class="table-data"><input class="input-checked" type="checkbox" name="contact_status" ${ ((client.contact_status) === true ? 'checked' : '') } value="Contactado" onclick="checkRow(${ client.id })"></span>

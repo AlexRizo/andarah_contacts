@@ -142,6 +142,32 @@ body {
     justify-content: space-between;
 }
 
+.leads {
+    display: flex;
+    flex-direction: column;
+}
+
+.leads:hover > .list-items {
+    display: flex;
+}
+
+.list-items {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    margin-top: 21px;
+}
+
+.nav-list-item:hover {
+    background: #3D6FE3;
+}
+
+.nav-list-item {
+    background: var(--bg-input);
+    padding: 5px;
+    min-width: 100px;
+}
+
 .logout {
     cursor: pointer;
 }

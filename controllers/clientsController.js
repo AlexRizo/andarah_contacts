@@ -25,7 +25,7 @@ export const postClient = async(req, res) => {
 }
 
 export const getClients = async(req, res) => {
-    const data = await User.findAll({include: { model: Staff }, order: [['contact_status', 'ASC']] });
+    const data = await User.findAll({include: [{ model: Staff }, {model: Origin}], order: [['contact_status', 'ASC']] });
 
     res.json({ clients:data })
 }

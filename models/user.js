@@ -72,10 +72,10 @@ User.init(
 Staff.hasMany(User, { foreignKey: 'staffId', targetKey:'id', as:'asigned' });
 User.belongsTo(Staff);
 
-Origin.hasMany(User, { foreignKey: 'originId', targetKey:'id', as:'asigned' });
+Origin.hasMany(User, { foreignKey: 'originId', targetKey:'id', as:'origin' });
 User.belongsTo(Origin);
 
-Platform.hasMany(User, { foreignKey: 'platformId', targetKey:'id', as:'asigned' });
+Platform.hasMany(User, { foreignKey: 'platformId', targetKey:'id', as:'platform' });
 User.belongsTo(Platform);
 
 export default User;
