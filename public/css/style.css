@@ -142,30 +142,19 @@ body {
     justify-content: space-between;
 }
 
-.leads {
+.origins {
     display: flex;
-    flex-direction: column;
-}
-
-.leads:hover > .list-items {
-    display: flex;
-}
-
-.list-items {
-    display: none;
-    flex-direction: column;
-    position: absolute;
-    margin-top: 21px;
-}
-
-.nav-list-item:hover {
-    background: #3D6FE3;
-}
-
-.nav-list-item {
-    background: var(--bg-input);
+    flex-direction: row;
     padding: 5px;
-    min-width: 100px;
+    background: var(--sec-color);
+    width: fit-content;
+    border-radius: 2px 2px 0 0;
+    border: 1px solid var(--border-color);
+}
+
+.origin-tab {
+    min-width: 50px;
+    cursor: pointer;
 }
 
 .logout {

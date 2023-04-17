@@ -92,6 +92,10 @@ const deleteLead = (id) => {
     }
 }
 
+const orderTableByOrigin = (origin = 0) => {
+    socket.emit('update-table-by', { origin })
+}
+
 const main = async() => {
     await init();
     await connectSocket();

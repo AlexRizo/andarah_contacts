@@ -1,5 +1,11 @@
 <section class="body">
     <div class="content">
+        <div class="origins">
+            <div class="origin-tab" onclick="orderTableByOrigin()">Todos</div>
+            <% origins.forEach(origin => { %>
+                <div class="origin-tab" onclick="orderTableByOrigin('<%= origin.id %>')"><%= origin.name %></div>
+            <% }); %>
+        </div>
         <div class="table">
             <div class="table-head">
                 <span class="head_item">#</span>
@@ -19,5 +25,4 @@
     </div>
 </section>
 
-<script src='http://localhost:3000/socket.io/socket.io.js'></script>
 <script src="/js/index.js"></script>

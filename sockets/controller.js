@@ -4,8 +4,9 @@ import Staff from "../models/staff.js";
 import User from '../models/user.js'
 import jwt from "jsonwebtoken";
 import { encrypt } from "../helpers/handleBcrypt.js";
+import Origin from "../models/origin.js";
 
-// Validar JWT
+// ? Validar JWT
 const jsonWebToken = async(token) => {
     try {
         const { id } = jwt.verify(token, process.env.SECRETORPRIVATEKEY);
@@ -22,9 +23,9 @@ const jsonWebToken = async(token) => {
     }
 }
 
-// : Admin section:
+// ? : Admin section:
 const updateTableUsers = async() => {
-    return await User.findAll({ include: { model: Staff }, order: [['contact_status', 'ASC']] });
+    return await User.findAll({ include: [{ model: Staff }, { model: Origin }], order: [['contact_status', 'ASC']] });
 }
 
 const updateTableStaff = async(role) => {
@@ -39,7 +40,7 @@ const updateTableStaff = async(role) => {
     return users = await Staff.findAll({ order: [['roleId', 'DESC']] });
 }
 
-// : obtener prospectos dependiendo de tu user.role:
+// ? : obtener prospectos dependiendo de tu user.role:
 const getProspectsAsignedTo = async(isStaff, value) => {
     if (!isStaff) {
         return await User.findAndCountAll({ where: { 'staffId': value, 'contact_status': false } });
@@ -48,7 +49,7 @@ const getProspectsAsignedTo = async(isStaff, value) => {
     }    
 }
 
-// : Actualizar Staff
+// ? : Actualizar Staff
 const staffUpdate = async(data) => {
     const {id, password, roleId, ...$data} = data;
     const staff = await Staff.findByPk(id);
@@ -67,6 +68,14 @@ const staffUpdate = async(data) => {
 
     await Staff.update($data, { where: { 'id': id } });
     return true;
+}
+
+const updateTable = async(origin) => {
+    if (origin) {
+        return await User.findAll({ where: { 'originId': origin }, include: [{ model: Staff }, { model: Origin }] });
+    } else {
+        return await User.findAll({ include: [{ model: Staff }, { model: Origin }] });
+    }
 }
 
 
@@ -112,6 +121,10 @@ const socketController = async(socket = new Socket(), io) => {
         await User.update({ 'contact_status': status }, { where: { 'id': id } });
 
         io.emit('update-table', { clients: await updateTableUsers() });
+    });
+
+    socket.on('update-table-by', async({ origin }) => {
+        socket.emit('update-table', { clients: await updateTable(origin) });
     });
 
     socket.on('update-prospects-table', async() => {
