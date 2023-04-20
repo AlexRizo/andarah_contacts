@@ -38,14 +38,14 @@ const createTable = (clients) => {
         table.innerHTML += `
             <a href="${ url }/client/view/${ client.id }?tkn=${ token }" class="table-row ${ ((client.contact_status) != true ? 'row-pending' : '') }">
                 <span class="table-data">${ client.name           }</span>
-                <span class="table-data">${ client.email          }</span>
-                <span class="table-data">${ client.city           }</span>
-                <span class="table-data">${ client.phone_number   }</span>
-                <span class="table-data">${ client.reason         }</span>
-                <span class="table-data">${ client.date_contact   }</span>
-                <span class="table-data">${ client.Origin.name    }</span>
-                <span class="table-data">${ ((client.staffId) != null ? client.Staff.name : 'Sin asignar') }</span>
-                <span class="table-data">${ ((client.note) != null ? client.note : '---') }</span>
+                <span class="table-data mobile">${ client.email          }</span>
+                <span class="table-data mobile">${ client.city           }</span>
+                <span class="table-data mobile">${ client.phone_number   }</span>
+                <span class="table-data mobile">${ client.reason         }</span>
+                <span class="table-data mobile">${ client.date_contact   }</span>
+                <span class="table-data mobile">${ client.Origin.name    }</span>
+                <span class="table-data mobile">${ ((client.staffId) != null ? client.Staff.name : 'Sin asignar') }</span>
+                <span class="table-data mobile">${ ((client.note) != null ? client.note : '---') }</span>
                 <span class="table-data">${ ((client.contact_status) === true ? 'Contactado' : 'Pendiente') }</span>
             </a>
         `;

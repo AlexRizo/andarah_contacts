@@ -1,3 +1,7 @@
+.mobile-menu, .quit {
+    display: none;
+}
+
 @media (max-width: 1920px) {
     .content {
         width: 1300px;
@@ -8,5 +12,53 @@
 @media (max-width: 1300px) {
     .content {
         width: 800px;
+    }
+}
+
+@media (max-width: 800px) {
+    .mobile-menu, .quit {
+        display: flex;
+        align-items: center;
+    }
+
+    .nav {
+        position: absolute;
+        flex-direction: column;
+        background: rgba(255, 255, 255, 0.935);
+        padding: 20px 10px;
+        top: -100%;
+        right: 0;
+        width: 100vw;
+        z-index: 10;
+    }
+
+    .nav-on {
+        top: 0;
+        transition: .4s;
+    }
+
+    .nav_item {
+        padding: 20px 0;
+    }
+
+    .mobile {
+        display: none;
+    }
+
+    .section, .content, .prospect, .general-section, .users-section, .my-clients-section {
+        width: 90vw;
+    }
+
+    .total-clients{
+        margin-top: 10px;
+    }
+
+    .data {
+        width: 130px;
+    }
+
+    .tail {
+        display: flex;
+        flex-direction:column;
     }
 }

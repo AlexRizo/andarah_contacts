@@ -101,6 +101,7 @@ form.addEventListener('submit', (ev) => {
         }
 
         formData[textarea.name] = textarea.value;
+        formData.originId = 3;
 
         const { status, fields } = checkFields();
         

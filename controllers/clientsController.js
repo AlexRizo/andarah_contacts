@@ -94,6 +94,9 @@ export const prospectPage = async(req, res) => {
         staff,
         origins,
         platforms,
-        id: user.id
+        admin: {
+            id: user.id,
+            role: user.roleId
+        }
     });
 }

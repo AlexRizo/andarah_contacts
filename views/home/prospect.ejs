@@ -2,10 +2,10 @@
     <form method="post" class="prospect">
         <div class="t-section">
             <span class="t-data-section-title">Prospecto <%= prospect.id %> | <%= prospect.name %></span>
-            <% if(prospect.staffId === id){ %>
+            <% if(prospect.staffId === admin.id || admin.role != 1){ %>
                 <span>
                     <input type="checkbox" name="edit" id="edit" class="checkbox-edit">
-                    <label for="edit" class="lbl-edit">Habilitar campos</label>
+                    <label for="edit" class="lbl-edit">Habilitar Edición</label>
                 </span>
             <% } %>
         </div>
@@ -43,18 +43,6 @@
                     <% } %>
                 </select>
             </div>
-            <div class="data-input origin">
-                <label for="originId">Origen</label>
-                <select class="input-add" name="originId" disabled>
-                    <% origins.forEach(origin => { %>
-                        <% if(prospect.originId === origin.id){ %>
-                            <option selected value="<%= origin.id %>"><%= origin.name %></option>
-                        <% } else{ %>  
-                            <option value="<%= origin.id %>"><%= origin.name %></option>
-                        <% } %>
-                    <% }); %>
-                </select> 
-            </div>
             <div class="data-input date_contact">
                 <label for="date_contact">Fecha de Envío</label>
                 <input class="input-add" type="date" name="date_contact" value="<%= prospect.date_contact %>" disabled>
@@ -75,28 +63,30 @@
                 <label for="gr">Grupo</label>
                 <input class="input-add" type="text" name="gr" value="<%= prospect.gr %>" disabled>
             </div>
-            <div class="data-input staffId">
-                <label for="staffId">Asignado a:</label>
-                <select name="staffId" class="input-add" disabled>
-                    <% if(prospect.staffId === null){ %>
-                        <option value="">Sin Asignar</option>
-                        <% staff.forEach(user => { %>
-                            <option value="<%= user.id %>"><%= user.name %></option>
-                        <% }); %>
-                    <% } else{ %>  
-                        <% staff.forEach(user => { %>
-                            <% if(prospect.staffId === user.id){ %>
-                                <option selected value="<%= user.id %>"><%= user.name %></option>
-                            <% } else{ %>  
+            <div class="tail">
+                <div class="data-input staffId">
+                    <label for="staffId">Asignado a:</label>
+                    <select name="staffId" class="input-add" disabled>
+                        <% if(prospect.staffId === null){ %>
+                            <option value="">Sin Asignar</option>
+                            <% staff.forEach(user => { %>
                                 <option value="<%= user.id %>"><%= user.name %></option>
-                            <% } %>
-                        <% }); %>
-                    <% } %>
-                </select>
-            </div>
-            <div class="data-input note">
-                <label for="note">Nota</label>
-                <textarea class="input-add note-add-new-client" name="note" cols="30" rows="5" placeholder="Nota" disabled><%= prospect.note %></textarea>
+                            <% }); %>
+                        <% } else{ %>  
+                            <% staff.forEach(user => { %>
+                                <% if(prospect.staffId === user.id){ %>
+                                    <option selected value="<%= user.id %>"><%= user.name %></option>
+                                <% } else{ %>  
+                                    <option value="<%= user.id %>"><%= user.name %></option>
+                                <% } %>
+                            <% }); %>
+                        <% } %>
+                    </select>
+                </div>
+                <div class="data-input note">
+                    <label for="note">Nota</label>
+                    <textarea class="input-add note-add-new-client" name="note" cols="30" rows="5" placeholder="Nota" disabled><%= prospect.note %></textarea>
+                </div>
             </div>
         </div>
         <div class="prospect-footer">

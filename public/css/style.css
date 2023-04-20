@@ -53,10 +53,10 @@ body {
     border-bottom: 0;
     border-style: solid;
     border-color: var(--border-color);
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px 60px;
-    justify-items: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 .section-footer {
@@ -82,6 +82,7 @@ body {
 .input-block {
     display: flex;
     flex-direction: column;
+    padding: 10px 0;
 }
 
 .input-block input, .input-block select {
@@ -126,13 +127,11 @@ body {
     display: flex;
     justify-content: space-between;
     background: var(--sec-color);
-    padding: 20px 0;
+    padding: 20px 15px;
     margin-bottom: 40px;
 }
 
-.title {
-    padding-left: 40px;
-}
+
 
 .nav {
     padding-right: 40px;
@@ -153,8 +152,9 @@ body {
 }
 
 .origin-tab {
-    min-width: 50px;
+    padding: 5px 6px;
     cursor: pointer;
+    border-right: 1px solid var(--border-color);
 }
 
 .logout {
@@ -420,8 +420,6 @@ body {
 }
 
 .colab-section, .prospects-section, .data-section {
-    min-width: 600px;
-    max-width: 1000px;
     border: 1px solid var(--border-color);
     border-radius: 0 0 3px 3px;
     background: var(--t-b-color);
@@ -453,7 +451,7 @@ body {
 }
 
 .general-section, .users-section, .my-clients-section, .prospect {
-    width: 850px;
+    width: 800px;
 }
 
 .t-section {
@@ -680,4 +678,16 @@ body {
 
 .selected:hover {
     background: var(--ter-color);
+}
+
+
+
+
+.tail {
+    display: flex;
+    flex-direction: row;
+}
+
+.prospect-data {
+    justify-content: space-between;
 }
