@@ -148,7 +148,7 @@ const createProspectsTable = (users) => {
     } else {
         users.forEach(user => {
             prospectTableBody.innerHTML += `
-            <a href="${ url }/client/view/${ user.id }" class="prospect-table-body selected">
+            <a href="${ url }/client/view/${ user.id }/?tkn=${ token }" class="prospect-table-body selected">
                 <span class="t-b">${ user.name }</span>
                 <span class="t-b">${ user.email }</span>
                 <span class="t-b">${ user.phone_number}</span>

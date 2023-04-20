@@ -14,6 +14,10 @@ Platform.init(
             type: new DataTypes.STRING(128),
             allowNull: false,
         },
+        prefix: {
+            type: new DataTypes.STRING(10),
+            allowNull: false,
+        },
     },
     {
         tableName: 'platforms',

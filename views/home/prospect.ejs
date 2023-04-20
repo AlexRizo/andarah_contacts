@@ -2,10 +2,12 @@
     <form method="post" class="prospect">
         <div class="t-section">
             <span class="t-data-section-title">Prospecto <%= prospect.id %> | <%= prospect.name %></span>
-            <span>
-                <input type="checkbox" name="edit" id="edit" class="checkbox-edit">
-                <label for="edit" class="lbl-edit">Habilitar campos</label>
-            </span>
+            <% if(prospect.staffId === id){ %>
+                <span>
+                    <input type="checkbox" name="edit" id="edit" class="checkbox-edit">
+                    <label for="edit" class="lbl-edit">Habilitar campos</label>
+                </span>
+            <% } %>
         </div>
         <div class="prospect-data">
             <input type="hidden" name="id" value="<%= prospect.id %>">

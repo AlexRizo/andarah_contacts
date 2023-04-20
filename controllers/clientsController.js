@@ -1,3 +1,4 @@
+import { validateJWT } from "../helpers/jwt.js";
 import Origin from "../models/origin.js";
 import Platform from "../models/platform.js";
 import Staff from "../models/staff.js";
@@ -74,6 +75,13 @@ export const prospectPage = async(req, res) => {
     const origins = await Origin.findAll();
     const platforms = await Platform.findAll();
 
+    const user = await validateJWT(req.query.tkn);
+
+    if (!user) {
+        return res.redirect('/403');
+    }
+
+
     if (!prospect.Staff) {
         prospect.Staff = {
             id: 0,
@@ -81,5 +89,11 @@ export const prospectPage = async(req, res) => {
         };
     }
     
-    res.render('home/prospect', { prospect, staff, origins, platforms });
+    res.render('home/prospect', { 
+        prospect,
+        staff,
+        origins,
+        platforms,
+        id: user.id
+    });
 }
