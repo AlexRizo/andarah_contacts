@@ -93,8 +93,6 @@ body {
     width: 200px;
 }
 
-.inputs { }
-
 .btn-send-form {
     background: var(--btn-col);
     border: 0;
