@@ -36,28 +36,20 @@ const createTable = (clients) => {
     
     clients.forEach(client => {
         table.innerHTML += `
-            <div class="table-row ${ ((client.contact_status) != true ? 'row-pending' : '') }">
-                <div class="table-data">
-                    <span onclick="deleteLead(${ client.id })" style="margin-right:15px;"><i class="fa-solid fa-trash-can" style="color: #bd0000;"></i></span>
-                    <a href="${ url }/client/view/${ client.id }"><i class="fa-solid fa-eye"></i></a>
-                </div>
+            <a href="${ url }/client/view/${ client.id }?tkn=${ token }" class="table-row ${ ((client.contact_status) != true ? 'row-pending' : '') }">
                 <span class="table-data">${ client.name           }</span>
-                <span class="table-data">${ client.email          }</span>
-                <span class="table-data">${ client.city           }</span>
-                <span class="table-data">${ client.phone_number   }</span>
-                <span class="table-data">${ client.reason         }</span>
-                <span class="table-data">${ client.date_contact   }</span>
-                <span class="table-data">${ client.Origin.name    }</span>
-                <span class="table-data">${ ((client.staffId) != null ? client.Staff.name : 'Sin asignar') }</span>
-                <span class="table-data">${ ((client.note) != null ? client.note : '---') }</span>
-                <span class="table-data"><input class="input-checked" type="checkbox" name="contact_status" ${ ((client.contact_status) === true ? 'checked' : '') } value="Contactado" onclick="checkRow(${ client.id })"></span>
-            </div>
+                <span class="table-data mobile">${ client.email          }</span>
+                <span class="table-data mobile">${ client.city           }</span>
+                <span class="table-data mobile">${ client.phone_number   }</span>
+                <span class="table-data mobile">${ client.reason         }</span>
+                <span class="table-data mobile">${ client.date_contact   }</span>
+                <span class="table-data mobile">${ client.Origin.name    }</span>
+                <span class="table-data mobile">${ ((client.staffId) != null ? client.Staff.name : 'Sin asignar') }</span>
+                <span class="table-data mobile">${ ((client.note) != null ? client.note : '---') }</span>
+                <span class="table-data">${ ((client.contact_status) === true ? 'Contactado' : 'Pendiente') }</span>
+            </a>
         `;
     });
-}
-
-const checkRow = (id) => {
-    socket.emit('row-checked', { id });
 }
 
 const connectSocket = async() => {
@@ -84,12 +76,6 @@ const connectSocket = async() => {
     socket.on('update-table', ({ clients }) => {
         createTable(clients);
     });
-}
-
-const deleteLead = (id) => {
-    if( confirm('Desea eliminar el registro? \nEsta acción no se puede deshacer.')) {
-        socket.emit('delete-client', { id });
-    }
 }
 
 const orderTableByOrigin = (origin = 0) => {

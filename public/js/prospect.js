@@ -4,7 +4,7 @@ const url = (window.location.hostname.includes('localhost')
 
 const token = localStorage.getItem('auth-token') || null;
 
-const edit = document.querySelector('#edit');
+const edit = document.querySelector('#edit') || null;
 const inputs = document.querySelectorAll('input');
 const selects = document.querySelectorAll('select');
 const textarea = document.querySelector('textarea');
@@ -46,9 +46,11 @@ const toggleInputs = () => {
     }
 }
 
-edit.addEventListener('click', () => {
-    toggleInputs();
-});
+if (edit) {
+    edit.addEventListener('click', () => {
+        toggleInputs();
+    });
+}
 
 const checkFields = () => {
     const fields = {};
@@ -81,6 +83,10 @@ const checkFields = () => {
 form.addEventListener('submit', (ev) => {
     ev.preventDefault();
 
+    if (!edit) {
+        return alert('Falta de permisos.');
+    }
+    
     const formData = {};
 
     if (edit.checked) {
@@ -95,6 +101,7 @@ form.addEventListener('submit', (ev) => {
         }
 
         formData[textarea.name] = textarea.value;
+        formData.originId = 3;
 
         const { status, fields } = checkFields();
         

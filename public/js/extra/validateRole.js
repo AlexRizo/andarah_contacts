@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const $url = (window.location.hostname.includes('localhost')
             ? 'https://andarah.leadscenter.work'
             : 'https://andarah.leadscenter.work')
@@ -30,3 +31,5 @@ const $main = async() => {
 }
 
 $main();
+=======
+>>>>>>> dev
