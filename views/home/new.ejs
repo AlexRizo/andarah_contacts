@@ -36,42 +36,30 @@
                 </select>
             </div>
             <div class="grid-rows">
-                <label class="lbl-input-add" for="originId">Origen</label>
-                <select class="input-add" name="originId">
-                    <option value="Web">Web</option>
-                    <option value="WhatsApp">WhatsApp</option>
-                    <option value="Facebook & Instagram">Facebook & Instagram</option>
-                    <option value="Llamada Telefónica">Llamada Telefónica</option>
-                    <option value="Visita al Módulo de Ventas">Visita al Módulo de Ventas</option>
-                    <option value="Otro">Otro</option>
-                </select>
-            </div>
-            <div class="grid-rows">
                 <label class="lbl-input-add" for="platformId">Plataforma</label>
                 <select class="input-add" name="platformId">
-                    <option value="Web">Web</option>
-                    <option value="WhatsApp">WhatsApp</option>
-                    <option value="Facebook & Instagram">Facebook & Instagram</option>
-                    <option value="Llamada Telefónica">Llamada Telefónica</option>
-                    <option value="Visita al Módulo de Ventas">Visita al Módulo de Ventas</option>
-                    <option value="Otro">Otro</option>
+                    <% platforms.forEach(platform => { %>
+                        <option value="<%= platform.id %>"><%= platform.name %></option>
+                    <% }); %>
                 </select>
             </div>
             <div class="grid-rows">
                 <label class="lbl-input-add" for="gr">Grupo</label>
                 <input class="input-add" type="text" name="gr" placeholder="Grupo">
             </div>
-            <div class="grid-rows">
-                <label class="lbl-input-add" for="name">Asignado a</label>
-                <select class="input-add" type="number" name="staffId">
-                    <% staff.forEach(user => { %>
-                        <option value="<%= user.id %>"><%= user.name %></option>
-                    <% }); %>
-                </select>
-            </div>
-            <div class="grid-rows">
-                <label class="lbl-input-add" for="note">Nota</label>
-                <textarea class="input-add note-add-new-client" name="note" cols="30" rows="10" placeholder="Nota"></textarea>
+            <div class="tail">
+                <div class="grid-rows">
+                    <label class="lbl-input-add" for="name">Asignado a</label>
+                    <select class="input-add" type="number" name="staffId">
+                        <% staff.forEach(user => { %>
+                            <option value="<%= user.id %>"><%= user.name %></option>
+                        <% }); %>
+                    </select>
+                </div>
+                <div class="grid-rows">
+                    <label class="lbl-input-add" for="note">Nota</label>
+                    <textarea class="input-add note-add-new-client" name="note" cols="30" rows="10" placeholder="Nota"></textarea>
+                </div>
             </div>
         </form>
         <div class="form-footer">

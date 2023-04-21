@@ -60,5 +60,10 @@
     .tail {
         display: flex;
         flex-direction:column;
+        width: initial;
+    }
+
+    .form-body {
+        width: 90vw;
     }
 }
